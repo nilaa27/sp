@@ -1,0 +1,52 @@
+body {
+  background: #0f172a;
+  font-family: 'Segoe UI', sans-serif;
+  color: #ffffff;
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+}
+.container {
+  max-width: 800px;
+  margin: auto;
+}
+.gauges {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.gauge-box {
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 10px;
+  width: 250px;
+}
+.speed {
+  font-size: 1.8rem;
+  margin-top: 10px;
+  font-weight: bold;
+}
+.metrics p {
+  margin: 10px 0;
+}
+#finalResult {
+  margin-top: 30px;
+}
+.hidden {
+  display: none;
+}
+.show {
+  display: block;
+}
+button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  margin-top: 20px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}

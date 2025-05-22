@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SpeedTest Pro</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>SpeedTest Pro</h1>
+    <p id="device">Perangkat: ...</p>
+    <p id="isp">ISP: ...</p>
+
+    <div class="gauges">
+      <div class="gauge-box">
+        <h2>Download</h2>
+        <canvas id="downloadGauge"></canvas>
+        <div class="speed"><span id="downloadSpeed">--</span> Mbps</div>
+      </div>
+      <div class="gauge-box">
+        <h2>Upload</h2>
+        <canvas id="uploadGauge"></canvas>
+        <div class="speed"><span id="uploadSpeed">--</span> Mbps</div>
+      </div>
+    </div>
+
+    <div class="metrics">
+      <p>Ping: <span id="ping">--</span> ms</p>
+      <p>Jitter: <span id="jitter">--</span> ms</p>
+    </div>
+
+    <div id="finalResult" class="hidden">
+      <h3>Hasil Tes</h3>
+      <p>Download: <span id="downloadResult">--</span> Mbps</p>
+      <p>Upload: <span id="uploadResult">--</span> Mbps</p>
+    </div>
+
+    <button id="restartBtn" style="display: none;">Tes Ulang</button>
+  </div>
+
+  <script src="librespeed/speedtest.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
