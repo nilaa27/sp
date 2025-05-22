@@ -1,41 +1,71 @@
 body {
-  margin: 0;
+  background: #0f172a;
   font-family: 'Segoe UI', sans-serif;
-  background-color: #0e0e12;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.container {
-  margin-top: 40px;
+  color: #ffffff;
+  margin: 0;
+  padding: 20px;
   text-align: center;
 }
 
+.container {
+  max-width: 800px;
+  margin: auto;
+}
+
 h1 {
-  font-size: 2.5rem;
-  margin-bottom: 30px;
-  color: #fff;
+  font-size: 2rem;
+  margin-bottom: 10px;
 }
 
-.card {
-  background-color: #1a1a23;
-  border-radius: 16px;
-  padding: 30px;
-  margin: 20px auto;
-  width: 300px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.6);
+.gauges {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 20px;
 }
 
-.card h2 {
-  margin-bottom: 20px;
-  font-size: 1.5rem;
-  color: #b3b3ff;
+.gauge-box {
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 10px;
+  width: 250px;
 }
 
-.speed-result {
-  font-size: 2.2rem;
+.gauge-box h2 {
+  margin-bottom: 10px;
+  color: #93c5fd;
+}
+
+.speed {
+  font-size: 1.8rem;
+  margin-top: 10px;
   font-weight: bold;
-  color: #fff;
+}
+
+.metrics p {
+  margin: 10px 0;
+}
+
+#finalResult {
+  margin-top: 30px;
+}
+
+.hidden {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  margin-top: 20px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
 }
