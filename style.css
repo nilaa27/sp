@@ -6,24 +6,20 @@ body {
   padding: 20px;
   text-align: center;
 }
-
 .container {
   max-width: 800px;
   margin: auto;
 }
-
 h1 {
   font-size: 2rem;
   margin-bottom: 10px;
 }
-
 .gauges {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
   margin-top: 20px;
 }
-
 .gauge-box {
   background: #1e293b;
   padding: 20px;
@@ -31,34 +27,27 @@ h1 {
   margin: 10px;
   width: 250px;
 }
-
 .gauge-box h2 {
   margin-bottom: 10px;
   color: #93c5fd;
 }
-
 .speed {
   font-size: 1.8rem;
   margin-top: 10px;
   font-weight: bold;
 }
-
 .metrics p {
   margin: 10px 0;
 }
-
 #finalResult {
   margin-top: 30px;
 }
-
 .hidden {
   display: none;
 }
-
 .show {
   display: block;
 }
-
 button {
   padding: 10px 20px;
   font-size: 1rem;
