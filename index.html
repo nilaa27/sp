@@ -79,10 +79,6 @@
     .info span {
       display: block;
     }
-
-    a {
-      color: #00bfff;
-    }
   </style>
 </head>
 <body>
@@ -110,7 +106,7 @@
     </div>
 
     <div class="info">
-      <span id="hostname">Memuat nama perangkat...</span>
+      <span id="device">Perangkat: ...</span>
       <span id="ip">IP: ...</span>
       <span id="isp">ISP: ...</span>
       <span id="city">Kota: ...</span>
@@ -118,22 +114,32 @@
   </div>
 
   <script>
-    // Ambil IP, ISP, Hostname
+    // Deteksi jenis perangkat dari user agent
+    function getDeviceType() {
+      const ua = navigator.userAgent;
+      if (/android/i.test(ua)) return "Android";
+      if (/iPad|iPhone|iPod/.test(ua)) return "iOS";
+      if (/Macintosh|Mac OS X/i.test(ua)) return "Mac OS";
+      if (/Windows NT/i.test(ua)) return "Windows";
+      if (/Linux/i.test(ua)) return "Linux";
+      return "Tidak Dikenal";
+    }
+    document.getElementById("device").textContent = "Perangkat: " + getDeviceType();
+
+    // Ambil data lokasi dan IP
     fetch("https://ipapi.co/json/")
       .then(res => res.json())
       .then(data => {
         document.getElementById("ip").textContent = "IP: " + data.ip;
         document.getElementById("isp").textContent = "ISP: " + data.org;
         document.getElementById("city").textContent = "Kota: " + data.city;
-        document.getElementById("hostname").textContent = data.hostname || "Perangkat Tidak Dikenal";
       })
       .catch(() => {
-        document.getElementById("hostname").textContent = "Gagal memuat data.";
+        document.getElementById("ip").textContent = "IP: Gagal memuat";
       });
 
-    // Speedometer Simulasi
+    // Inisialisasi chart speedometer
     const downloadSpeed = 32.1;
-
     const ctx = document.getElementById('speedometer').getContext('2d');
     new Chart(ctx, {
       type: 'doughnut',
