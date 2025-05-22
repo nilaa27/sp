@@ -3,33 +3,158 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SpeedTest Pro</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>SpeedTest</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #121212;
+      font-family: 'Orbitron', sans-serif;
+      color: white;
+      text-align: center;
+    }
+
+    h1 {
+      margin-top: 30px;
+      font-size: 32px;
+      color: #00bfff;
+    }
+
+    .gauge {
+      width: 200px;
+      height: 100px;
+      background: #333;
+      border-radius: 100px 100px 0 0;
+      margin: 40px auto 20px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 0 10px #000000aa;
+    }
+
+    .gauge-fill {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, #00bfff, #0077ff);
+      transform-origin: center bottom;
+      transform: rotate(0deg);
+      transition: transform 1s ease-in-out;
+      border-radius: 100px 100px 0 0;
+    }
+
+    .gauge-cover {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 50%;
+      background-color: #121212;
+      border-radius: 100px 100px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .gauge-text {
+      font-size: 32px;
+      color: #00bfff;
+    }
+
+    .btn {
+      background-color: #00bfff;
+      border: none;
+      padding: 12px 28px;
+      color: white;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #008ecc;
+    }
+
+    .cards {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background-color: #1e1e1e;
+      padding: 16px 24px;
+      border-radius: 12px;
+      box-shadow: 0 0 8px #00000066;
+      min-width: 100px;
+    }
+
+    .card h2 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .card span {
+      color: #00bfff;
+      font-size: 20px;
+      display: block;
+    }
+
+    .info-box {
+      margin-top: 30px;
+      background-color: #1c1c1c;
+      padding: 12px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+    }
+
+    .info-box p {
+      margin: 6px 0;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1 class="title">SPEEDTEST</h1>
-    <div class="speedometer">
-      <svg viewBox="0 0 200 100">
-        <path d="M10,100 A90,90 0 0,1 190,100" stroke="#444" stroke-width="20" fill="none"/>
-        <path id="arc" d="M10,100 A90,90 0 0,1 10,100" stroke="#00bfff" stroke-width="20" fill="none"/>
-      </svg>
-      <div class="speed-value" id="speedValue">0</div>
-      <div class="unit">Mbps</div>
-    </div>
-    <button id="startBtn">Mulai Tes</button>
+  <h1>SPEEDTEST</h1>
 
-    <div class="cards">
-      <div class="card"><h3>Unduh</h3><p id="download">--</p><span>Mbps</span></div>
-      <div class="card"><h3>Unggah</h3><p id="upload">--</p><span>Mbps</span></div>
-      <div class="card"><h3>Ping</h3><p id="ping">--</p><span>ms</span></div>
+  <div class="gauge">
+    <div class="gauge-fill"></div>
+    <div class="gauge-cover">
+      <span class="gauge-text">0</span>
     </div>
+  </div>
 
-    <div class="info-cards">
-      <div class="info"><strong>IP:</strong> <span id="ip">-</span></div>
-      <div class="info"><strong>ISP:</strong> <span id="isp">-</span></div>
-      <div class="info"><strong>Perangkat:</strong> <span id="device">-</span></div>
+  <button class="btn" id="startBtn">Mulai Tes</button>
+
+  <div class="cards">
+    <div class="card">
+      <h2>Unduh</h2>
+      <span id="download">--</span> Mbps
     </div>
+    <div class="card">
+      <h2>Unggah</h2>
+      <span id="upload">--</span> Mbps
+    </div>
+    <div class="card">
+      <h2>Ping</h2>
+      <span id="ping">--</span> ms
+    </div>
+  </div>
+
+  <div class="info-box">
+    <p><strong>IP:</strong> -</p>
+    <p><strong>ISP:</strong> -</p>
+    <p><strong>Perangkat:</strong> -</p>
   </div>
 
   <script src="script.js"></script>
