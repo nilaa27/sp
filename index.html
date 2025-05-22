@@ -3,60 +3,85 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SpeedTest Clone</title>
+  <title>Speedtest</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-doughnutlabel@2.0.0"></script>
   <style>
     body {
       margin: 0;
-      padding: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-color: #e6f7ff;
+      background-color: #121212;
+      color: #fff;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 40px 20px;
     }
 
     .container {
-      max-width: 480px;
+      background: #1e1e1e;
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 500px;
       width: 100%;
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 0 30px rgba(0,0,0,0.1);
-      padding: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
       text-align: center;
-      margin: 40px 0;
     }
 
     .title {
-      font-size: 1.6em;
+      font-size: 2em;
       font-weight: bold;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
+      color: #00bfff;
     }
 
     canvas {
       margin-top: 10px;
     }
 
-    .stats {
-      margin-top: 20px;
-      font-size: 1em;
-    }
-
-    .stats p {
-      margin: 6px 0;
-    }
-
     .results {
-      background: #f5f5f5;
-      border-radius: 10px;
-      padding: 10px;
-      margin-top: 20px;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      margin-top: 30px;
+      gap: 20px;
     }
 
-    .label {
-      font-weight: bold;
+    .result-box {
+      background: #292929;
+      padding: 15px 20px;
+      border-radius: 12px;
+      flex: 1;
+      min-width: 120px;
+    }
+
+    .result-box p {
+      margin: 0;
+      font-size: 0.9em;
+      color: #aaa;
+    }
+
+    .result-box h2 {
+      margin: 5px 0 0;
+      color: #00bfff;
+      font-size: 1.5em;
+    }
+
+    .info {
+      margin-top: 30px;
+      font-size: 0.9em;
+      color: #ccc;
+      line-height: 1.6;
+    }
+
+    .info span {
+      display: block;
+    }
+
+    a {
+      color: #00bfff;
     }
   </style>
 </head>
@@ -64,25 +89,36 @@
 
   <div class="container">
     <div class="title">SPEEDTEST</div>
-    <canvas id="speedometer" width="300" height="300"></canvas>
+    <canvas id="speedometer" width="280" height="280"></canvas>
 
     <div class="results">
-      <p><span class="label">Unduh:</span> <span id="download">32.1</span> Mbps</p>
-      <p><span class="label">Unggah:</span> <span id="upload">--</span> Mbps</p>
-      <p><span class="label">Ping:</span> <span id="ping">15</span> ms</p>
-      <p><span class="label">Jitter:</span> <span id="jitter">5</span> ms</p>
+      <div class="result-box">
+        <p>Unduh</p>
+        <h2 id="download">32.1</h2>
+        <p>Mbps</p>
+      </div>
+      <div class="result-box">
+        <p>Unggah</p>
+        <h2 id="upload">--</h2>
+        <p>Mbps</p>
+      </div>
+      <div class="result-box">
+        <p>Ping</p>
+        <h2 id="ping">15</h2>
+        <p>ms</p>
+      </div>
     </div>
 
-    <div class="stats">
-      <p id="hostname">Memuat nama perangkat...</p>
-      <p id="ip">IP: ...</p>
-      <p id="isp">ISP: ...</p>
-      <p id="city">Kota: ...</p>
+    <div class="info">
+      <span id="hostname">Memuat nama perangkat...</span>
+      <span id="ip">IP: ...</span>
+      <span id="isp">ISP: ...</span>
+      <span id="city">Kota: ...</span>
     </div>
   </div>
 
   <script>
-    // Fetch IP and ISP info
+    // Ambil IP, ISP, Hostname
     fetch("https://ipapi.co/json/")
       .then(res => res.json())
       .then(data => {
@@ -95,40 +131,37 @@
         document.getElementById("hostname").textContent = "Gagal memuat data.";
       });
 
-    // Simulasi hasil unduh
+    // Speedometer Simulasi
     const downloadSpeed = 32.1;
 
     const ctx = document.getElementById('speedometer').getContext('2d');
     new Chart(ctx, {
       type: 'doughnut',
       data: {
-        labels: ['Download'],
         datasets: [{
           data: [downloadSpeed, 1000 - downloadSpeed],
-          backgroundColor: ['#4169e1', '#e0e0e0'],
+          backgroundColor: ['#00bfff', '#2c2c2c'],
           borderWidth: 0
         }]
       },
       options: {
         responsive: false,
         maintainAspectRatio: false,
-        circumference: 180,
-        rotation: 270,
-        cutout: '70%',
+        circumference: 360,
+        rotation: -90,
+        cutout: '80%',
         plugins: {
-          legend: {
-            display: false
-          },
+          legend: { display: false },
           doughnutlabel: {
             labels: [
               {
                 text: downloadSpeed.toFixed(1),
-                font: {
-                  size: '30'
-                }
+                font: { size: '32' },
+                color: '#00bfff'
               },
               {
-                text: 'Mbps'
+                text: 'Mbps',
+                color: '#aaa'
               }
             ]
           }
