@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -10,21 +9,29 @@
 <body>
   <div class="container">
     <h1>SPEEDTEST</h1>
+
     <div class="speedometer-container">
       <canvas id="speedometer" width="300" height="300"></canvas>
       <div class="speed-value" id="speedValue">0.0 Mbps</div>
     </div>
+
     <div class="info-section">
       <div class="info-box"><strong>Ping</strong><br><span id="ping">--</span> ms</div>
       <div class="info-box"><strong>Jitter</strong><br><span id="jitter">--</span> ms</div>
       <div class="info-box"><strong>Unduh</strong><br><span id="download">--</span> Mbps</div>
       <div class="info-box"><strong>Unggah</strong><br><span id="upload">--</span> Mbps</div>
     </div>
-    <div class="ip-section">
-      <div id="ipInfo">Mengambil info IP...</div>
+
+    <div class="info-section">
+      <div class="info-box"><strong>ISP:</strong><br><span id="isp">...</span></div>
+      <div class="info-box"><strong>Lokasi:</strong><br><span id="lokasi">...</span></div>
+      <div class="info-box"><strong>IP:</strong><br><span id="ip">...</span></div>
+      <div class="info-box"><strong>Perangkat:</strong><br><span id="perangkat">...</span></div>
     </div>
+
     <button onclick="startTest()">Mulai Tes</button>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>
