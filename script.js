@@ -16,7 +16,7 @@ function getDeviceInfo() {
   return `${browser} di ${os}`;
 }
 
-fetch("https://ipinfo.io/json?token=demo")
+fetch("https://ipinfo.io/json?token=db955ecd23c16c")
   .then(res => res.json())
   .then(data => {
     document.getElementById("isp").innerText = data.org || "Tidak diketahui";
