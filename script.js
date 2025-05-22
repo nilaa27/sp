@@ -100,5 +100,3 @@ async function startTest() {
   document.getElementById("ping").textContent = pingData.ping;
   document.getElementById("jitter").textContent = pingData.jitter;
 }
-
-startTest();
