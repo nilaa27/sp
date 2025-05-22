@@ -1,94 +1,49 @@
-// Konfigurasi server LibreSpeed
-const settings = {
-  telemetry_level: "basic",
-  server: {
-    name: "LibreSpeed",
-    download: "https://speedtest.wifire.io/garbage.php",
-    upload: "https://speedtest.wifire.io/empty.php",
-    ping: "https://speedtest.wifire.io/empty.php",
-  },
-};
+document.getElementById("startBtn").addEventListener("click", () => {
+  simulateTest();
+});
 
-let xhr;
-document.getElementById("startBtn").addEventListener("click", startTest);
+function simulateTest() {
+  let down = randomSpeed();
+  let up = randomSpeed();
+  let ping = Math.floor(Math.random() * 100) + 1;
 
-function startTest() {
-  resetUI();
+  animateSpeed(down);
+  document.getElementById("download").textContent = down;
+  document.getElementById("upload").textContent = up;
+  document.getElementById("ping").textContent = ping;
+}
 
-  testPing().then(ping => {
-    document.getElementById("ping").textContent = ping.toFixed(0);
+function randomSpeed() {
+  return (Math.random() * 200 + 10).toFixed(1);
+}
+
+function animateSpeed(value) {
+  let percent = Math.min(value / 1000, 1);
+  let angle = percent * 180;
+  let radians = (angle * Math.PI) / 180;
+  let x = 100 + 90 * Math.cos(radians);
+  let y = 100 - 90 * Math.sin(radians);
+  let arc = `M10,100 A90,90 0 ${angle > 180 ? 1 : 0},1 ${x},${y}`;
+  document.getElementById("arc").setAttribute("d", arc);
+  document.getElementById("speedValue").textContent = value;
+}
+
+// Get IP and ISP
+fetch("https://ipapi.co/json/")
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("ip").textContent = data.ip;
+    document.getElementById("isp").textContent = data.org;
   });
 
-  testDownload().then(speed => {
-    document.getElementById("download").textContent = speed.toFixed(1);
-    animateSpeed(speed);
-  });
-
-  testUpload().then(speed => {
-    document.getElementById("upload").textContent = speed.toFixed(1);
-  });
+// Get device info
+function getDevice() {
+  const ua = navigator.userAgent;
+  if (/android/i.test(ua)) return "Android";
+  if (/iPad|iPhone|iPod/.test(ua)) return "iOS";
+  if (/Macintosh/.test(ua)) return "macOS";
+  if (/Windows/.test(ua)) return "Windows";
+  if (/Linux/.test(ua)) return "Linux";
+  return "Lainnya";
 }
-
-function testPing() {
-  const start = performance.now();
-  return fetch(settings.server.ping + "?r=" + Math.random())
-    .then(() => performance.now() - start);
-}
-
-function testDownload() {
-  return new Promise(resolve => {
-    const start = performance.now();
-    xhr = new XMLHttpRequest();
-    xhr.responseType = "blob";
-    xhr.onload = () => {
-      const duration = (performance.now() - start) / 1000;
-      const bitsLoaded = xhr.response.size * 8;
-      const speedMbps = bitsLoaded / duration / 1024 / 1024;
-      resolve(speedMbps);
-    };
-    xhr.open("GET", settings.server.download + "?r=" + Math.random(), true);
-    xhr.send();
-  });
-}
-
-function testUpload() {
-  return new Promise(resolve => {
-    const blob = new Blob(["a".repeat(2000000)], { type: "application/octet-stream" });
-    const start = performance.now();
-    xhr = new XMLHttpRequest();
-    xhr.onload = () => {
-      const duration = (performance.now() - start) / 1000;
-      const bitsSent = blob.size * 8;
-      const speedMbps = bitsSent / duration / 1024 / 1024;
-      resolve(speedMbps);
-    };
-    xhr.open("POST", settings.server.upload + "?r=" + Math.random(), true);
-    xhr.send(blob);
-  });
-}
-
-// Fungsi animasi speedometer
-function animateSpeed(speed) {
-  const maxSpeed = 1000; // anggap maksimum 1000 Mbps
-  const percent = Math.min(speed / maxSpeed, 1);
-  const degrees = percent * 180;
-
-  const fill = document.querySelector('.gauge-fill');
-  const text = document.querySelector('.gauge-text');
-
-  if (fill) fill.style.transform = `rotate(${degrees}deg)`;
-  if (text) text.textContent = speed.toFixed(1);
-}
-
-// Reset UI sebelum tes baru
-function resetUI() {
-  document.getElementById("ping").textContent = "--";
-  document.getElementById("download").textContent = "--";
-  document.getElementById("upload").textContent = "--";
-
-  const fill = document.querySelector('.gauge-fill');
-  const text = document.querySelector('.gauge-text');
-
-  if (fill) fill.style.transform = `rotate(0deg)`;
-  if (text) text.textContent = "0";
-}
+document.getElementById("device").textContent = getDevice();
