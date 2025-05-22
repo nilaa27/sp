@@ -15,8 +15,6 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
       padding: 40px 20px;
     }
 
@@ -79,6 +77,21 @@
     .info span {
       display: block;
     }
+
+    .btn {
+      margin-top: 25px;
+      padding: 12px 30px;
+      font-size: 1em;
+      background-color: #00bfff;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #009adf;
+    }
   </style>
 </head>
 <body>
@@ -87,10 +100,12 @@
     <div class="title">SPEEDTEST</div>
     <canvas id="speedometer" width="280" height="280"></canvas>
 
+    <button class="btn" onclick="startTest()">Mulai Tes</button>
+
     <div class="results">
       <div class="result-box">
         <p>Unduh</p>
-        <h2 id="download">32.1</h2>
+        <h2 id="download">--</h2>
         <p>Mbps</p>
       </div>
       <div class="result-box">
@@ -100,7 +115,7 @@
       </div>
       <div class="result-box">
         <p>Ping</p>
-        <h2 id="ping">15</h2>
+        <h2 id="ping">--</h2>
         <p>ms</p>
       </div>
     </div>
@@ -114,7 +129,7 @@
   </div>
 
   <script>
-    // Deteksi jenis perangkat dari user agent
+    // Fungsi deteksi perangkat
     function getDeviceType() {
       const ua = navigator.userAgent;
       if (/android/i.test(ua)) return "Android";
@@ -126,26 +141,23 @@
     }
     document.getElementById("device").textContent = "Perangkat: " + getDeviceType();
 
-    // Ambil data lokasi dan IP
+    // IP dan lokasi otomatis
     fetch("https://ipapi.co/json/")
       .then(res => res.json())
       .then(data => {
         document.getElementById("ip").textContent = "IP: " + data.ip;
         document.getElementById("isp").textContent = "ISP: " + data.org;
         document.getElementById("city").textContent = "Kota: " + data.city;
-      })
-      .catch(() => {
-        document.getElementById("ip").textContent = "IP: Gagal memuat";
       });
 
-    // Inisialisasi chart speedometer
-    const downloadSpeed = 32.1;
+    // Inisialisasi speedometer kosong
     const ctx = document.getElementById('speedometer').getContext('2d');
-    new Chart(ctx, {
+    let downloadSpeed = 0;
+    let chart = new Chart(ctx, {
       type: 'doughnut',
       data: {
         datasets: [{
-          data: [downloadSpeed, 1000 - downloadSpeed],
+          data: [0, 1000],
           backgroundColor: ['#00bfff', '#2c2c2c'],
           borderWidth: 0
         }]
@@ -161,7 +173,7 @@
           doughnutlabel: {
             labels: [
               {
-                text: downloadSpeed.toFixed(1),
+                text: "0.0",
                 font: { size: '32' },
                 color: '#00bfff'
               },
@@ -174,6 +186,29 @@
         }
       }
     });
+
+    // Fungsi simulasi tes kecepatan
+    function startTest() {
+      let speed = 0;
+      let interval = setInterval(() => {
+        if (speed >= 230) {
+          clearInterval(interval);
+          document.getElementById("download").textContent = speed.toFixed(1);
+          document.getElementById("upload").textContent = (speed * 0.6).toFixed(1);
+          document.getElementById("ping").textContent = (Math.random() * 40 + 10).toFixed(0);
+
+          chart.data.datasets[0].data = [speed, 1000 - speed];
+          chart.options.plugins.doughnutlabel.labels[0].text = speed.toFixed(1);
+          chart.update();
+          return;
+        }
+
+        speed += Math.random() * 12;
+        chart.data.datasets[0].data = [speed, 1000 - speed];
+        chart.options.plugins.doughnutlabel.labels[0].text = speed.toFixed(1);
+        chart.update();
+      }, 100);
+    }
   </script>
 
 </body>
