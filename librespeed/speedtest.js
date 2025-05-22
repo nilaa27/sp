@@ -1,0 +1,1 @@
+// LibreSpeed Speedtest.js placeholder
