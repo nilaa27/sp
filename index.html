@@ -3,213 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Speedtest</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-doughnutlabel@2.0.0"></script>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #121212;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 40px 20px;
-    }
-
-    .container {
-      background: #1e1e1e;
-      border-radius: 20px;
-      padding: 30px;
-      max-width: 500px;
-      width: 100%;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-      text-align: center;
-    }
-
-    .title {
-      font-size: 2em;
-      font-weight: bold;
-      margin-bottom: 20px;
-      color: #00bfff;
-    }
-
-    canvas {
-      margin-top: 10px;
-    }
-
-    .results {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      margin-top: 30px;
-      gap: 20px;
-    }
-
-    .result-box {
-      background: #292929;
-      padding: 15px 20px;
-      border-radius: 12px;
-      flex: 1;
-      min-width: 120px;
-    }
-
-    .result-box p {
-      margin: 0;
-      font-size: 0.9em;
-      color: #aaa;
-    }
-
-    .result-box h2 {
-      margin: 5px 0 0;
-      color: #00bfff;
-      font-size: 1.5em;
-    }
-
-    .info {
-      margin-top: 30px;
-      font-size: 0.9em;
-      color: #ccc;
-      line-height: 1.6;
-    }
-
-    .info span {
-      display: block;
-    }
-
-    .btn {
-      margin-top: 25px;
-      padding: 12px 30px;
-      font-size: 1em;
-      background-color: #00bfff;
-      border: none;
-      border-radius: 8px;
-      color: #fff;
-      cursor: pointer;
-    }
-
-    .btn:hover {
-      background-color: #009adf;
-    }
-  </style>
+  <title>SpeedTest Pro</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
   <div class="container">
-    <div class="title">SPEEDTEST</div>
-    <canvas id="speedometer" width="280" height="280"></canvas>
+    <h1 class="title">SPEEDTEST</h1>
+    <div class="speedometer">
+      <svg viewBox="0 0 200 100">
+        <path d="M10,100 A90,90 0 0,1 190,100" stroke="#444" stroke-width="20" fill="none"/>
+        <path id="arc" d="M10,100 A90,90 0 0,1 10,100" stroke="#00bfff" stroke-width="20" fill="none"/>
+      </svg>
+      <div class="speed-value" id="speedValue">0</div>
+      <div class="unit">Mbps</div>
+    </div>
+    <button id="startBtn">Mulai Tes</button>
 
-    <button class="btn" onclick="startTest()">Mulai Tes</button>
-
-    <div class="results">
-      <div class="result-box">
-        <p>Unduh</p>
-        <h2 id="download">--</h2>
-        <p>Mbps</p>
-      </div>
-      <div class="result-box">
-        <p>Unggah</p>
-        <h2 id="upload">--</h2>
-        <p>Mbps</p>
-      </div>
-      <div class="result-box">
-        <p>Ping</p>
-        <h2 id="ping">--</h2>
-        <p>ms</p>
-      </div>
+    <div class="cards">
+      <div class="card"><h3>Unduh</h3><p id="download">--</p><span>Mbps</span></div>
+      <div class="card"><h3>Unggah</h3><p id="upload">--</p><span>Mbps</span></div>
+      <div class="card"><h3>Ping</h3><p id="ping">--</p><span>ms</span></div>
     </div>
 
-    <div class="info">
-      <span id="device">Perangkat: ...</span>
-      <span id="ip">IP: ...</span>
-      <span id="isp">ISP: ...</span>
-      <span id="city">Kota: ...</span>
+    <div class="info-cards">
+      <div class="info"><strong>IP:</strong> <span id="ip">-</span></div>
+      <div class="info"><strong>ISP:</strong> <span id="isp">-</span></div>
+      <div class="info"><strong>Perangkat:</strong> <span id="device">-</span></div>
     </div>
   </div>
 
-  <script>
-    // Fungsi deteksi perangkat
-    function getDeviceType() {
-      const ua = navigator.userAgent;
-      if (/android/i.test(ua)) return "Android";
-      if (/iPad|iPhone|iPod/.test(ua)) return "iOS";
-      if (/Macintosh|Mac OS X/i.test(ua)) return "Mac OS";
-      if (/Windows NT/i.test(ua)) return "Windows";
-      if (/Linux/i.test(ua)) return "Linux";
-      return "Tidak Dikenal";
-    }
-    document.getElementById("device").textContent = "Perangkat: " + getDeviceType();
-
-    // IP dan lokasi otomatis
-    fetch("https://ipapi.co/json/")
-      .then(res => res.json())
-      .then(data => {
-        document.getElementById("ip").textContent = "IP: " + data.ip;
-        document.getElementById("isp").textContent = "ISP: " + data.org;
-        document.getElementById("city").textContent = "Kota: " + data.city;
-      });
-
-    // Inisialisasi speedometer kosong
-    const ctx = document.getElementById('speedometer').getContext('2d');
-    let downloadSpeed = 0;
-    let chart = new Chart(ctx, {
-      type: 'doughnut',
-      data: {
-        datasets: [{
-          data: [0, 1000],
-          backgroundColor: ['#00bfff', '#2c2c2c'],
-          borderWidth: 0
-        }]
-      },
-      options: {
-        responsive: false,
-        maintainAspectRatio: false,
-        circumference: 360,
-        rotation: -90,
-        cutout: '80%',
-        plugins: {
-          legend: { display: false },
-          doughnutlabel: {
-            labels: [
-              {
-                text: "0.0",
-                font: { size: '32' },
-                color: '#00bfff'
-              },
-              {
-                text: 'Mbps',
-                color: '#aaa'
-              }
-            ]
-          }
-        }
-      }
-    });
-
-    // Fungsi simulasi tes kecepatan
-    function startTest() {
-      let speed = 0;
-      let interval = setInterval(() => {
-        if (speed >= 230) {
-          clearInterval(interval);
-          document.getElementById("download").textContent = speed.toFixed(1);
-          document.getElementById("upload").textContent = (speed * 0.6).toFixed(1);
-          document.getElementById("ping").textContent = (Math.random() * 40 + 10).toFixed(0);
-
-          chart.data.datasets[0].data = [speed, 1000 - speed];
-          chart.options.plugins.doughnutlabel.labels[0].text = speed.toFixed(1);
-          chart.update();
-          return;
-        }
-
-        speed += Math.random() * 12;
-        chart.data.datasets[0].data = [speed, 1000 - speed];
-        chart.options.plugins.doughnutlabel.labels[0].text = speed.toFixed(1);
-        chart.update();
-      }, 100);
-    }
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
