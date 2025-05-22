@@ -1,4 +1,3 @@
-// Konfigurasi server LibreSpeed
 const settings = {
   server: {
     download: "https://speedtest.wifire.io/garbage.php",
@@ -62,7 +61,6 @@ function testUpload() {
   });
 }
 
-// Speedometer animasi
 function animateSpeed(value) {
   let percent = Math.min(value / 1000, 1);
   let angle = percent * 180;
@@ -74,7 +72,6 @@ function animateSpeed(value) {
   document.getElementById("speedValue").textContent = value.toFixed(1);
 }
 
-// Get IP & ISP
 fetch("https://ipapi.co/json/")
   .then(res => res.json())
   .then(data => {
@@ -82,7 +79,6 @@ fetch("https://ipapi.co/json/")
     document.getElementById("isp").textContent = data.org;
   });
 
-// Get perangkat
 function getDevice() {
   const ua = navigator.userAgent;
   if (/android/i.test(ua)) return "Android";
