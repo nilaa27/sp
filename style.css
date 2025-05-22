@@ -1,41 +1,36 @@
-
 body {
   font-family: 'Segoe UI', sans-serif;
   background-color: #0f172a;
   color: white;
   text-align: center;
+  margin: 0;
   padding: 20px;
 }
 
 .container {
-  max-width: 800px;
+  max-width: 900px;
   margin: auto;
 }
 
 .gauges {
   display: flex;
-  justify-content: space-around;
   flex-wrap: wrap;
-  margin-top: 30px;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 40px;
 }
 
 .gauge-box {
   width: 300px;
-  margin: 20px;
 }
 
 canvas {
-  width: 100%;
-  max-width: 250px;
-  height: auto;
-}
-
-.speed {
-  font-size: 2em;
-  margin-top: 10px;
+  max-width: 220px;
+  margin: auto;
+  display: block;
 }
 
 .metrics {
-  margin-top: 20px;
+  margin-top: 40px;
   font-size: 1.2em;
 }
