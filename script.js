@@ -46,4 +46,4 @@ function getDevice() {
   if (/Linux/.test(ua)) return "Linux";
   return "Lainnya";
 }
-document.getElementById("device").textContent = getDevice();
+document.getElementById("device").textContent = getDevice();;
