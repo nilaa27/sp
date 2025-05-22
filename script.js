@@ -20,7 +20,7 @@ function getDeviceInfo() {
 }
 
 // Ambil IP, ISP, dan lokasi dari ipinfo.io
-fetch("https://ipinfo.io/json?token=demo")
+fetch("https://ipinfo.io/json?token=db955ecd23c16c")
   .then(res => res.json())
   .then(data => {
     const isp = data.org || "ISP tidak diketahui";
