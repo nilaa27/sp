@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Masuk Dulu Ya!</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -52,6 +53,7 @@
         .input-group {
             margin-bottom: 25px;
             text-align: left;
+            position: relative; /* Penting untuk penempatan ikon */
         }
         .input-group label {
             display: block;
@@ -71,6 +73,7 @@
             color: #333;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
             animation: slideInRight 0.7s ease-out forwards 0.5s;
+            padding-right: 45px; /* Memberi ruang untuk ikon mata */
         }
         @keyframes slideInRight {
             from { transform: translateX(-20px); opacity: 0; }
@@ -80,6 +83,19 @@
             outline: none;
             border-color: #1DB954; /* Border hijau Spotify saat focus */
             box-shadow: 0 0 0 3px rgba(29, 185, 84, 0.2);
+        }
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 60%; /* Sesuaikan posisi vertikal ikon agar pas */
+            transform: translateY(-50%); /* Penyesuaian agar ikon di tengah */
+            cursor: pointer;
+            color: #888;
+            transition: color 0.3s ease;
+            font-size: 1.1em; /* Ukuran ikon mata */
+        }
+        .toggle-password:hover {
+            color: #333;
         }
         button {
             background-color: #1DB954; /* Warna hijau Spotify */
@@ -127,19 +143,33 @@
         <div class="input-group">
             <label for="password">Password</label>
             <input type="password" id="password" name="password" placeholder="***">
+            <i class="fa-solid fa-eye toggle-password" id="togglePassword"></i>
         </div>
         <button onclick="login()">Lanjutkan</button>
         <p class="message" id="loginMessage"></p>
     </div>
 
     <script>
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+
+        togglePassword.addEventListener('click', function () {
+            // Toggle the type attribute
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            // Toggle the eye icon
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+
         function login() {
             const usernameInput = document.getElementById('username').value;
-            const passwordInput = document.getElementById('password').value;
+            const passwordValue = passwordInput.value;
             const messageElement = document.getElementById('loginMessage');
 
             // Cek username dan password
-            if (usernameInput === 'mayfa' && passwordInput === '1') {
+            if (usernameInput === 'admin' && passwordValue === '123') {
                 window.location.href = 'spotify_surprise.html';
             } else {
                 messageElement.textContent = 'Username atau password salah. Mohon coba lagi!';
