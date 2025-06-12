@@ -49,19 +49,14 @@
             // Tambahkan kelas untuk memicu animasi ledakan kado
             giftBox.classList.add('is-exploding');
 
-            // Setelah animasi ledakan selesai, tampilkan konten
-            // Kita akan menunggu animasi shard terakhir selesai
-            const lastShard = document.querySelector('.gift-shard.shard-4');
-
-            // Pastikan event listener hanya aktif sekali
-            lastShard.addEventListener('animationend', (event) => {
-                if (event.animationName === 'shardExplode') {
-                    // Sembunyikan kotak hadiah sepenuhnya setelah ledakan
-                    giftBox.style.display = 'none'; 
-                    giftContent.classList.remove('hidden'); // Tampilkan konten hadiah
-                    giftContent.classList.add('content-reveal'); // Pemicu animasi muncul
-                }
-            }, { once: true }); 
+            // Kita akan menunggu animasi ledakan shard selesai
+            // Menggunakan setTimeout yang sangat pendek untuk memastikan CSS render dan animasi dimulai
+            // sebelum JS menyembunyikan elemen. Ini bisa lebih reliable daripada event 'animationend' untuk ledakan instan.
+            setTimeout(() => {
+                giftBox.style.display = 'none'; // Sembunyikan kotak hadiah sepenuhnya setelah ledakan
+                giftContent.classList.remove('hidden'); // Tampilkan konten hadiah
+                giftContent.classList.add('content-reveal'); // Pemicu animasi muncul
+            }, 300); // Durasi ini harus sedikit lebih lama dari durasi total animasi shardExplode
         });
 
         function goBack() {
