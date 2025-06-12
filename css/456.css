@@ -3,199 +3,285 @@
 body {
     font-family: 'Poppins', sans-serif;
     display: flex;
-    /* justify-content: center; */ /* Hapus atau jadikan komentar */
-    /* align-items: center; */    /* Hapus atau jadikan komentar */
-    min-height: 100vh; /* Pertahankan ini agar setidaknya setinggi viewport */
-    background: linear-gradient(to bottom right, #1DB954, #0a5a2a); /* Gradasi hijau Spotify */
+    justify-content: center;
+    align-items: flex-start; /* Mengatur konten ke atas jika ada scroll */
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f0f2f5 0%, #d8e4ea 100%); /* Gradasi lembut */
     margin: 0;
-    color: white;
-    text-align: center;
-    /* overflow: hidden; */ /* HAPUS BARIS INI! */
-    animation: gradientShift 15s ease infinite alternate;
-    flex-direction: column; /* Tambahkan ini agar konten menumpuk vertikal */
-    padding: 30px 0; /* Tambahkan sedikit padding di atas dan bawah untuk estetika */
-}
-
-@keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 100% 50%; }
-}
-
-.spotify-card {
-    background-color: rgba(18, 18, 18, 0.85); /* Background gelap transparan ala Spotify */
-    padding: 50px;
-    border-radius: 25px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
-    max-width: 550px;
-    width: 90%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-    backdrop-filter: blur(8px);
-    transform: scale(0.8);
-    opacity: 0;
-    animation: cardPopIn 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    color: #333;
+    animation: fadeIn 1.2s ease-in-out;
+    overflow-x: hidden;
+    padding: 30px 0; /* Memberi ruang di atas dan bawah untuk scroll */
     box-sizing: border-box;
-    margin: auto; /* Tambahkan margin auto untuk memposisikan card di tengah jika body flex-direction: column */
 }
 
-@keyframes cardPopIn {
-    from { transform: scale(0.8); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.main-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 90%;
+    animation: slideInUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-sizing: border-box;
+    margin: auto; /* Untuk memposisikan di tengah vertikal jika konten pendek */
+}
+
+@keyframes slideInUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* --- Header Section (Profile & Chat Bubble) --- */
+.header-section {
+    display: flex;
+    justify-content: flex-start; /* Biar profile di kiri */
+    align-items: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    animation: fadeIn 0.8s ease-in-out forwards 0.3s;
+}
+
+.profile-area {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 .profile-pic-wrapper {
-    position: relative;
-    width: 200px;
-    height: 200px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     overflow: hidden;
-    border: 5px solid #1DB954; /* Border hijau Spotify */
-    box-shadow: 0 0 20px rgba(29, 185, 84, 0.5);
-    animation: spin 8s linear infinite;
+    border: 3px solid #ff69b4; /* Pink cerah */
+    box-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+    animation: pulseBorder 2s infinite alternate;
 }
 
-@keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+@keyframes pulseBorder {
+    from { border-color: #ff69b4; box-shadow: 0 0 10px rgba(255, 105, 180, 0.5); }
+    to { border-color: #ffb6c1; box-shadow: 0 0 15px rgba(255, 105, 180, 0.8); }
 }
 
 .profile-pic {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
 }
 
-.profile-pic:hover {
-    transform: scale(1.05);
+.chat-bubble {
+    background-color: #ff69b4; /* Pink cerah */
+    color: white;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-size: 1.1em;
+    font-weight: 500;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    animation: bubblePop 0.6s ease-out forwards 0.6s;
+}
+.chat-bubble .fa-heart {
+    margin-left: 8px;
+    font-size: 0.9em;
+    color: #fff;
 }
 
-h1 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 3em;
-    margin-bottom: 10px;
-    font-weight: 700;
-    color: #1DB954;
-    letter-spacing: -1px;
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-}
-
-.title-animation {
-    opacity: 0;
-    animation: textFadeInUp 1s ease-out forwards 0.8s;
-}
-
-@keyframes textFadeInUp {
-    from { transform: translateY(20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-p {
-    font-size: 1.15em;
-    line-height: 1.7;
-    color: #e0e0e0;
-    margin-bottom: 20px;
-}
-
-.fade-in-text {
-    opacity: 0;
-    animation: fadeIn 1s ease-in-out forwards 1.2s;
-}
-
-audio {
-    width: 90%;
-    margin-top: 20px;
-    filter: invert(0.9) saturate(1.2);
-}
-
-.audio-player-animation {
-    opacity: 0;
-    animation: slideInUp 1s ease-out forwards 1.5s;
-}
-
-@keyframes slideInUp {
-    from { transform: translateY(30px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-.gift-button {
-    background-color: #FFC107;
-    color: #333;
-    padding: 18px 40px;
-    border: none;
-    border-radius: 35px;
-    cursor: pointer;
-    font-size: 1.4em;
-    font-weight: 700;
-    margin-top: 35px;
-    transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
-    animation: bounceIn 1s ease-out forwards 2s;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    letter-spacing: 0.5px;
-}
-
-.gift-button:hover {
-    background-color: #e0a800;
-    transform: scale(1.03);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-}
-
-@keyframes bounceIn {
-    0% { transform: scale(0.3); opacity: 0; }
-    50% { transform: scale(1.1); opacity: 1; }
-    80% { transform: scale(0.95); }
+@keyframes bubblePop {
+    0% { transform: scale(0.5); opacity: 0; }
+    80% { transform: scale(1.05); opacity: 1; }
     100% { transform: scale(1); }
 }
 
-/* Generic fade in for other elements */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+/* --- Age Display & Countdown Section --- */
+.countdown-section {
+    text-align: center;
+    margin-bottom: 30px;
+    animation: fadeIn 0.8s ease-in-out forwards 1s;
 }
+
+.age-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.8em;
+    color: #e91e63; /* Pink yang lebih gelap dari bubble */
+    margin-bottom: 25px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    animation: textPopIn 0.8s ease-out forwards 1.2s;
+}
+
+@keyframes textPopIn {
+    0% { transform: translateY(20px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+.countdown-timer {
+    display: flex;
+    justify-content: center;
+    align-items: baseline; /* Menjaga angka dan label sejajar */
+    gap: 10px;
+    margin-bottom: 40px;
+    font-family: 'Montserrat', sans-serif;
+    color: #ff69b4; /* Pink cerah */
+    animation: fadeIn 0.8s ease-in-out forwards 1.5s;
+}
+
+.time-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff0f5; /* Background sangat muda */
+    padding: 10px 15px;
+    border-radius: 10px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.time-value {
+    font-size: 2.5em;
+    font-weight: 700;
+    line-height: 1; /* Kompak */
+    color: #e91e63; /* Pink gelap */
+}
+
+.time-label {
+    font-size: 0.8em;
+    font-weight: 500;
+    color: #888;
+    margin-top: 5px;
+}
+
+.colon {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: #e91e63;
+    margin: 0 5px; /* Spasi antar kolon */
+}
+
+/* --- Gift Button --- */
+.gift-button {
+    background-color: #e91e63; /* Pink */
+    color: white;
+    padding: 15px 35px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+    animation: bounceIn 0.8s ease-out forwards 1.8s;
+}
+.gift-button:hover {
+    background-color: #d81b60; /* Pink lebih gelap */
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+.gift-button .fa-lock {
+    margin-right: 10px;
+}
+
+/* --- Footer Icons --- */
+.footer-icons {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    font-size: 1.8em;
+    color: #ff69b4; /* Pink cerah */
+    animation: fadeIn 0.8s ease-in-out forwards 2s;
+}
+.footer-icons .fa-heart {
+    animation: pulseHeart 1.5s infinite alternate;
+}
+.footer-icons .fa-paw {
+    color: #ccc; /* Warna lebih kalem untuk kaki */
+    animation: floatUpDown 2s infinite alternate;
+}
+
+@keyframes pulseHeart {
+    from { transform: scale(1); opacity: 0.8; }
+    to { transform: scale(1.1); opacity: 1; }
+}
+@keyframes floatUpDown {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.made-with-love {
+    font-size: 0.8em;
+    color: #aaa;
+    margin-top: 20px;
+    animation: fadeIn 0.8s ease-in-out forwards 2.2s;
+}
+
 
 /* --- Responsive Adjustments --- */
-@media (max-width: 768px) {
-    .spotify-card {
-        padding: 40px 30px;
-        gap: 20px;
+@media (max-width: 600px) {
+    .main-container {
+        padding: 25px;
     }
-    .profile-pic-wrapper {
-        width: 160px;
-        height: 160px;
+    .header-section {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
     }
-    h1 {
-        font-size: 2.2em;
+    .profile-area {
+        width: 100%;
+        justify-content: center; /* Pusatkan gambar profil di mobile */
+        margin-bottom: 15px;
     }
-    p {
-        font-size: 1em;
+    .chat-bubble {
+        margin: 0 auto; /* Pusatkan chat bubble */
+        width: fit-content;
+        max-width: 90%;
+        text-align: center;
     }
-    .gift-button {
-        padding: 15px 30px;
-        font-size: 1.2em;
+    .age-text {
+        font-size: 2em;
     }
-}
-
-@media (max-width: 480px) {
-    .spotify-card {
-        padding: 30px 20px;
+    .countdown-timer {
+        flex-wrap: wrap; /* Izinkan wrap pada baris baru */
+        gap: 5px; /* Kurangi gap */
+        justify-content: center;
     }
-    .profile-pic-wrapper {
-        width: 140px;
-        height: 140px;
+    .time-box {
+        padding: 8px 12px;
     }
-    h1 {
-        font-size: 1.8em;
+    .time-value {
+        font-size: 2em;
     }
-    p {
-        font-size: 0.9em;
-    }
-    audio {
-        width: 95%;
+    .colon {
+        font-size: 2em;
     }
     .gift-button {
         padding: 12px 25px;
         font-size: 1em;
+    }
+    .footer-icons {
+        font-size: 1.5em;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 400px) {
+    .profile-pic-wrapper {
+        width: 70px;
+        height: 70px;
+    }
+    .age-text {
+        font-size: 1.8em;
+    }
+    .time-value {
+        font-size: 1.8em;
+    }
+    .colon {
+        font-size: 1.8em;
     }
 }
