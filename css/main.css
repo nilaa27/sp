@@ -95,7 +95,7 @@ h2 {
 .toggle-password {
     position: absolute;
     right: 15px;
-    top: 50%; /* Acuan di tengah */
+    top: -70%; /* Acuan di tengah */
     transform: translateY(-50%); /* --- PENYESUAIAN UTAMA DI SINI --- */
     /* Kembali ke -50% agar titik tengah elemen pas dengan top: 50%.
        Kita akan sesuaikan `top` dengan nilai `px` di bawah jika perlu. */
