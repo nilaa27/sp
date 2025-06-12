@@ -78,6 +78,7 @@ h2 {
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     animation: slideInRight 0.7s ease-out forwards 0.5s;
     padding-right: 70px; /* Memberi ruang lebih banyak untuk teks "Show" */
+    height: 48px; /* Menentukan tinggi input secara eksplisit */
 }
 
 @keyframes slideInRight {
@@ -93,19 +94,24 @@ h2 {
 
 .toggle-password {
     position: absolute;
-    right: -25px;
-    top: 30%;
-    transform: translateY(-90%); /* Penyesuaian agar teks ke bawah */
+    right: 15px;
+    top: 50%; /* Acuan di tengah */
+    transform: translateY(-50%); /* --- PENYESUAIAN UTAMA DI SINI --- */
+    /* Kembali ke -50% agar titik tengah elemen pas dengan top: 50%.
+       Kita akan sesuaikan `top` dengan nilai `px` di bawah jika perlu. */
     cursor: pointer;
     color: #888;
-    font-size: 0.9em;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    
-    /* --- ANIMASI PERPINDAHAN SHOW/HIDE --- */
     transition: opacity 0.2s ease-out, transform 0.2s ease-out; /* Transisi halus */
-    animation: none; /* Pastikan tidak ada animasi lain yang mengganggu */
+    font-size: 0.9em; /* Ukuran font untuk teks "Show" */
+    font-weight: 600; /* Tebal sedikit */
+    letter-spacing: 0.5px;
+    text-transform: uppercase; /* Agar terlihat lebih rapi */
+    
+    /* --- PENYESUAIAN TAMBAHAN UNTUK POSISI VERTIKAL --- */
+    /* Jika masih kurang ke bawah, coba naikkan nilai `top` ini.
+       Misal: `top: 25px;` (coba-coba nilai sampai pas di tengah) */
+    /* Atau, gunakan `line-height` yang sama dengan tinggi input jika memungkinkan */
+    /* line-height: 48px; */ /* Sesuaikan dengan tinggi input jika ini membantu */
 }
 
 /* Animasi saat teks muncul */
@@ -119,15 +125,14 @@ h2 {
 }
 
 @keyframes textFadeIn {
-    from { opacity: 0; transform: translateY(-30%); } /* Mulai sedikit di atas dan transparan */
-    to { opacity: 1; transform: translateY(-40%); } /* Berakhir di posisi normal */
+    from { opacity: 0; transform: translateY(-60%); } /* Mulai sedikit di atas dan transparan */
+    to { opacity: 1; transform: translateY(-50%); } /* Berakhir di posisi normal */
 }
 
 @keyframes textFadeOut {
-    from { opacity: 1; transform: translateY(-40%); }
-    to { opacity: 0; transform: translateY(-50%); } /* Geser sedikit ke atas dan transparan saat keluar */
+    from { opacity: 1; transform: translateY(-50%); }
+    to { opacity: 0; transform: translateY(-60%); } /* Geser sedikit ke atas dan transparan saat keluar */
 }
-/* --- AKHIR ANIMASI PERPINDAHAN SHOW/HIDE --- */
 
 
 .toggle-password:hover {
@@ -184,12 +189,15 @@ button:hover {
     .input-group input {
         padding: 12px 15px;
         padding-right: 60px; /* Sesuaikan lagi untuk mobile */
+        height: 42px; /* Sesuaikan tinggi input untuk mobile */
     }
     .toggle-password {
         right: 10px; /* Sesuaikan lagi untuk mobile */
         font-size: 0.8em;
         top: 50%;
-        transform: translateY(-40%); /* Pastikan konsisten */
+        transform: translateY(-50%); /* Kembali ke -50% */
+        /* Jika masih kurang di tengah, coba naikkan nilai `top` ini di mobile juga */
+        /* top: 22px; */ /* contoh nilai untuk mobile */
     }
     button {
         padding: 12px 25px;
