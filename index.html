@@ -54,6 +54,7 @@
             margin-bottom: 25px;
             text-align: left;
             position: relative; /* Penting untuk penempatan ikon */
+            /* Tambahan untuk debuging: border: 1px solid red; */
         }
         .input-group label {
             display: block;
@@ -73,7 +74,7 @@
             color: #333;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
             animation: slideInRight 0.7s ease-out forwards 0.5s;
-            padding-right: 45px; /* Memberi ruang untuk ikon mata */
+            padding-right: 50px; /* Memberi ruang lebih untuk ikon mata */
         }
         @keyframes slideInRight {
             from { transform: translateX(-20px); opacity: 0; }
@@ -86,13 +87,14 @@
         }
         .toggle-password {
             position: absolute;
-            right: 15px;
-            top: 60%; /* Sesuaikan posisi vertikal ikon agar pas */
-            transform: translateY(-50%); /* Penyesuaian agar ikon di tengah */
+            right: 18px; /* Sesuaikan posisi horizontal ikon */
+            top: 50%; /* Posisikan ke tengah vertikal input */
+            transform: translateY(20%); /* Penyesuaian halus ke bawah */
             cursor: pointer;
             color: #888;
             transition: color 0.3s ease;
             font-size: 1.1em; /* Ukuran ikon mata */
+            line-height: 1; /* Pastikan line-height tidak mengganggu posisi */
         }
         .toggle-password:hover {
             color: #333;
