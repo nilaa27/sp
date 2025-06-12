@@ -194,7 +194,7 @@ button:hover {
     .toggle-password {
         right: 10px; /* Sesuaikan lagi untuk mobile */
         font-size: 0.8em;
-        top: 95%;
+        top: 85%;
         transform: translateY(-50%); /* Kembali ke -50% */
         /* Jika masih kurang di tengah, coba naikkan nilai `top` ini di mobile juga */
         /* top: 22px; */ /* contoh nilai untuk mobile */
