@@ -80,7 +80,8 @@ body {
     box-shadow: 8px 8px 0 #000;
     transform-origin: bottom center;
     z-index: 10;
-    transition: opacity 0.1s linear; /* Hampir instan untuk efek ledakan */
+    /* Transition untuk menghilang cepat, tapi animasi ledakan pecahan yang utama */
+    transition: opacity 0.05s linear, transform 0.05s linear; 
 }
 
 /* Pecahan Kado */
@@ -108,7 +109,8 @@ body {
     background-color: #00ff00;
     box-shadow: 1px 1px 0 #000, -1px -1px 0 #00ff00;
     z-index: 5;
-    transition: opacity 0.1s linear, transform 0.1s linear; /* Hampir instan untuk efek ledakan */
+    /* Transisi sangat cepat saat menghilang */
+    transition: opacity 0.05s linear, transform 0.05s linear; 
 }
 
 .gift-bow-h { /* Pita Horizontal */
@@ -129,43 +131,44 @@ body {
 .gift-box.is-exploding .gift-lid,
 .gift-box.is-exploding .gift-bow-h,
 .gift-box.is-exploding .gift-bow-v,
-.gift-box.is-exploding .gift-body { /* Sembunyikan semua elemen kado */
+.gift-box.is-exploding .gift-body {
     opacity: 0;
-    transform: scale(0); /* Menyusut cepat */
-    transition: opacity 0.1s linear, transform 0.1s linear;
+    transform: scale(0); /* Menyusut sangat cepat */
+    transition: opacity 0.05s linear, transform 0.05s linear; /* Hampir instan */
 }
 
 .gift-box.is-exploding .open-button {
-    display: none; /* Pastikan tombol hilang */
+    display: none;
 }
 
 
-/* Animasi Pecahan */
+/* Animasi Pecahan Kado */
 .gift-box.is-exploding .gift-shard {
-    animation: shardExplode 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; /* Cepat dan bouncy */
-    opacity: 1;
+    animation: shardExplode 0.4s ease-out forwards; /* Durasi lebih cepat, easing lebih tegas */
+    opacity: 1; /* Langsung muncul */
 }
 
+/* Transformasi akhir untuk setiap pecahan */
 .gift-box.is-exploding .shard-1 {
     animation-delay: 0s;
-    transform: translate(-50%, -50%) translate(-80px, -60px) rotate(30deg) scale(1.2);
+    transform: translate(-50%, -50%) translate(-120px, -90px) rotate(40deg) scale(0.8);
 }
 .gift-box.is-exploding .shard-2 {
-    animation-delay: 0.05s;
-    transform: translate(-50%, -50%) translate(70px, -40px) rotate(-20deg) scale(1.1);
+    animation-delay: 0.03s; /* Delay sangat kecil */
+    transform: translate(-50%, -50%) translate(100px, -70px) rotate(-30deg) scale(0.9);
 }
 .gift-box.is-exploding .shard-3 {
-    animation-delay: 0.1s;
-    transform: translate(-50%, -50%) translate(-50px, 80px) rotate(45deg) scale(1.3);
+    animation-delay: 0.06s; /* Delay sangat kecil */
+    transform: translate(-50%, -50%) translate(-80px, 110px) rotate(55deg) scale(0.7);
 }
 .gift-box.is-exploding .shard-4 {
-    animation-delay: 0.15s;
-    transform: translate(-50%, -50%) translate(90px, 70px) rotate(-10deg) scale(1.0);
+    animation-delay: 0.09s; /* Delay sangat kecil */
+    transform: translate(-50%, -50%) translate(130px, 90px) rotate(-25deg) scale(1.0);
 }
 
 @keyframes shardExplode {
-    0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-    100% { opacity: 0; transform: translate(-50%, -50%) var(--final-transform) scale(0); } /* --final-transform akan di-override */
+    0% { opacity: 1; } /* Langsung muncul */
+    100% { opacity: 0; transform: translate(-50%, -50%) var(--final-transform, 0) scale(0); } /* --final-transform di-override */
 }
 
 
@@ -235,7 +238,7 @@ body {
 
 .gift-content.content-reveal {
     display: block; /* Akan diubah JS */
-    animation: contentReveal 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; /* Animasi reveal lebih cepat */
+    animation: contentReveal 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; /* Animasi reveal lebih cepat */
 }
 
 @keyframes contentReveal {
