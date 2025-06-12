@@ -1,51 +1,61 @@
 /* css/456.css */
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'VT323', monospace;
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Mengatur konten ke atas jika ada scroll */
+    align-items: flex-start;
     min-height: 100vh;
-    background: linear-gradient(135deg, #f0f2f5 0%, #d8e4ea 100%); /* Gradasi lembut */
+    background-color: #1a1a2e; /* Dark, retro background */
     margin: 0;
-    color: #333;
-    animation: fadeIn 1.2s ease-in-out;
+    color: #e0e0e0;
+    animation: fadeInPixel 1.2s steps(15, end);
     overflow-x: hidden;
-    padding: 30px 0; /* Memberi ruang di atas dan bawah untuk scroll */
+    padding: 30px 0;
     box-sizing: border-box;
 }
 
-@keyframes fadeIn {
+@keyframes fadeInPixel {
     from { opacity: 0; }
     to { opacity: 1; }
 }
 
 .main-container {
-    background-color: #ffffff;
+    background-color: #2e2e4e;
     padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    border-radius: 0;
+    border: 2px solid #5d5d81;
+    box-shadow: 6px 6px 0 #000;
     max-width: 600px;
     width: 90%;
-    animation: slideInUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    animation: slideInPixel 1s steps(12, end);
     box-sizing: border-box;
-    margin: auto; /* Untuk memposisikan di tengah vertikal jika konten pendek */
+    margin: auto;
+    position: relative;
+    overflow: hidden;
+}
+.main-container::after {
+    content: '';
+    position: absolute;
+    top: -2px; left: -2px; right: -2px; bottom: -2px;
+    border: 2px dashed #4e4e6a;
+    pointer-events: none;
 }
 
-@keyframes slideInUp {
-    from { transform: translateY(50px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+@keyframes slideInPixel {
+    from { transform: translateY(50px) scale(0.9); opacity: 0; }
+    to { transform: translateY(0) scale(1); opacity: 1; }
 }
 
 /* --- Header Section (Profile & Chat Bubble) --- */
 .header-section {
     display: flex;
-    justify-content: flex-start; /* Biar profile di kiri */
+    justify-content: flex-start;
     align-items: center;
     margin-bottom: 40px;
     padding-bottom: 20px;
-    border-bottom: 1px solid #eee;
-    animation: fadeIn 0.8s ease-in-out forwards 0.3s;
+    border-bottom: 2px dotted #4e4e6a; /* Pixel dotted border */
+    animation: fadeInPixel 0.8s steps(10, end) forwards 0.3s;
 }
 
 .profile-area {
@@ -57,168 +67,180 @@ body {
 .profile-pic-wrapper {
     width: 80px;
     height: 80px;
-    border-radius: 50%;
+    border-radius: 0; /* No border-radius */
     overflow: hidden;
-    border: 3px solid #ff69b4; /* Pink cerah */
-    box-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
-    animation: pulseBorder 2s infinite alternate;
+    border: 3px solid #00ff00; /* Green pixel border */
+    box-shadow: 0 0 0 2px #00ff00; /* Outer pixel glow */
+    animation: pixelPulseBorder 2s steps(4) infinite alternate;
 }
 
-@keyframes pulseBorder {
-    from { border-color: #ff69b4; box-shadow: 0 0 10px rgba(255, 105, 180, 0.5); }
-    to { border-color: #ffb6c1; box-shadow: 0 0 15px rgba(255, 105, 180, 0.8); }
+@keyframes pixelPulseBorder {
+    0% { border-color: #00ff00; box-shadow: 0 0 0 2px #00ff00; }
+    100% { border-color: #ff00ff; box-shadow: 0 0 0 2px #ff00ff; }
 }
 
 .profile-pic {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover; /* Still cover, but user should pixelate image */
+    image-rendering: pixelated; /* PENTING: Untuk memastikan gambar tetap pixelated */
+    filter: brightness(1.2); /* Sedikit cerah */
 }
 
 .chat-bubble {
-    background-color: #ff69b4; /* Pink cerah */
-    color: white;
-    padding: 12px 20px;
-    border-radius: 25px;
-    font-size: 1.1em;
-    font-weight: 500;
+    background-color: #5d5d81; /* Muted purple */
+    color: #e0e0e0;
+    padding: 10px 18px;
+    border-radius: 0;
+    border: 2px solid #a0a0a0;
+    font-size: 1em;
+    font-family: 'VT323', monospace;
     position: relative;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    animation: bubblePop 0.6s ease-out forwards 0.6s;
+    box-shadow: 4px 4px 0 #000;
+    animation: bubblePopPixel 0.5s steps(5) forwards 0.6s;
+    text-shadow: 1px 1px 0 #000;
 }
-.chat-bubble .fa-heart {
-    margin-left: 8px;
-    font-size: 0.9em;
-    color: #fff;
+.chat-bubble::after { /* Pointer for bubble */
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0; height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid #5d5d81;
 }
 
-@keyframes bubblePop {
+@keyframes bubblePopPixel {
     0% { transform: scale(0.5); opacity: 0; }
-    80% { transform: scale(1.05); opacity: 1; }
-    100% { transform: scale(1); }
+    100% { transform: scale(1); opacity: 1; }
 }
 
 /* --- Age Display & Countdown Section --- */
 .countdown-section {
     text-align: center;
     margin-bottom: 30px;
-    animation: fadeIn 0.8s ease-in-out forwards 1s;
+    animation: fadeInPixel 0.8s steps(10, end) forwards 1s;
 }
 
 .age-text {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 2.8em;
-    color: #e91e63; /* Pink yang lebih gelap dari bubble */
+    font-family: 'Press Start 2P', cursive;
+    font-size: 2.2em;
+    color: #00ff00;
     margin-bottom: 25px;
-    font-weight: 700;
-    letter-spacing: -1px;
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    animation: textPopIn 0.8s ease-out forwards 1.2s;
+    text-shadow: 2px 2px 0 #000;
+    animation: textScanline 1s steps(1) infinite alternate;
+}
+@keyframes textScanline { /* Simulate CRT scanline */
+    0% { filter: brightness(1.2); }
+    100% { filter: brightness(0.8); }
 }
 
-@keyframes textPopIn {
-    0% { transform: translateY(20px); opacity: 0; }
-    100% { transform: translateY(0); opacity: 1; }
-}
 
 .countdown-timer {
     display: flex;
     justify-content: center;
-    align-items: baseline; /* Menjaga angka dan label sejajar */
+    align-items: baseline;
     gap: 10px;
     margin-bottom: 40px;
-    font-family: 'Montserrat', sans-serif;
-    color: #ff69b4; /* Pink cerah */
-    animation: fadeIn 0.8s ease-in-out forwards 1.5s;
+    font-family: 'VT323', monospace;
+    color: #00ff00;
+    animation: fadeInPixel 0.8s steps(10, end) forwards 1.2s;
 }
 
 .time-box {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #fff0f5; /* Background sangat muda */
-    padding: 10px 15px;
-    border-radius: 10px;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    background-color: #3a3a5a;
+    padding: 8px 12px;
+    border-radius: 0;
+    border: 2px solid #a0a0a0;
+    box-shadow: inset 2px 2px 0 #1a1a2e;
 }
 
 .time-value {
     font-size: 2.5em;
-    font-weight: 700;
-    line-height: 1; /* Kompak */
-    color: #e91e63; /* Pink gelap */
+    font-weight: normal;
+    line-height: 1;
+    color: #ff00ff; /* Magenta for values */
+    text-shadow: 1px 1px 0 #000;
 }
 
 .time-label {
-    font-size: 0.8em;
-    font-weight: 500;
-    color: #888;
+    font-size: 0.7em;
+    font-weight: normal;
+    color: #a0a0a0;
     margin-top: 5px;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 0 #000;
 }
 
 .colon {
     font-size: 2.5em;
-    font-weight: 700;
-    color: #e91e63;
-    margin: 0 5px; /* Spasi antar kolon */
+    font-weight: normal;
+    color: #ff00ff;
+    margin: 0 5px;
+    text-shadow: 1px 1px 0 #000;
 }
 
 /* --- Gift Button --- */
 .gift-button {
-    background-color: #e91e63; /* Pink */
-    color: white;
-    padding: 15px 35px;
+    background-color: #ff00ff; /* Magenta */
+    color: #1a1a2e;
+    padding: 12px 25px;
     border: none;
-    border-radius: 30px;
+    border-radius: 0;
     cursor: pointer;
-    font-size: 1.2em;
-    font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.9em;
+    font-weight: normal;
+    box-shadow: 4px 4px 0 #000; /* 3D pixel effect */
+    transition: all 0.1s steps(1);
     margin-top: 20px;
-    animation: bounceIn 0.8s ease-out forwards 1.8s;
+    animation: pulsePixel 1.5s steps(2) infinite alternate;
 }
 .gift-button:hover {
-    background-color: #d81b60; /* Pink lebih gelap */
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-}
-.gift-button .fa-lock {
-    margin-right: 10px;
+    background-color: #00ff00; /* Green on hover */
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 #000;
 }
 
-/* --- Footer Icons --- */
+/* --- Footer Icons (simple pixel blocks) --- */
 .footer-icons {
     margin-top: 40px;
     display: flex;
     justify-content: center;
     gap: 15px;
-    font-size: 1.8em;
-    color: #ff69b4; /* Pink cerah */
-    animation: fadeIn 0.8s ease-in-out forwards 2s;
+    font-size: 1.5em; /* Ukuran block */
+    color: #00ff00; /* Green */
+    animation: fadeInPixel 0.8s steps(10, end) forwards 1.5s;
 }
-.footer-icons .fa-heart {
-    animation: pulseHeart 1.5s infinite alternate;
+.footer-icons span {
+    display: inline-block;
+    width: 1em; /* Width based on font size */
+    height: 1em; /* Height based on font size */
+    background-color: #00ff00;
+    border: 2px solid #000;
+    box-shadow: 2px 2px 0 #ff00ff; /* Magenta shadow */
+    transition: all 0.1s steps(1);
 }
-.footer-icons .fa-paw {
-    color: #ccc; /* Warna lebih kalem untuk kaki */
-    animation: floatUpDown 2s infinite alternate;
+.footer-icons span:nth-child(even) {
+    background-color: #ff00ff; /* Alternate color */
+    box-shadow: 2px 2px 0 #00ff00; /* Alternate shadow */
 }
 
-@keyframes pulseHeart {
-    from { transform: scale(1); opacity: 0.8; }
-    to { transform: scale(1.1); opacity: 1; }
-}
-@keyframes floatUpDown {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
+.footer-icons span:hover {
+    transform: scale(1.2);
 }
 
 .made-with-love {
     font-size: 0.8em;
-    color: #aaa;
+    color: #a0a0a0;
     margin-top: 20px;
-    animation: fadeIn 0.8s ease-in-out forwards 2.2s;
+    animation: fadeInPixel 0.8s steps(10, end) forwards 1.8s;
+    text-shadow: 1px 1px 0 #000;
 }
 
 
@@ -227,61 +249,34 @@ body {
     .main-container {
         padding: 25px;
     }
-    .header-section {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
+    h2 {
+        font-size: 1.4em;
     }
-    .profile-area {
-        width: 100%;
-        justify-content: center; /* Pusatkan gambar profil di mobile */
-        margin-bottom: 15px;
+    .profile-pic-wrapper {
+        width: 60px;
+        height: 60px;
     }
     .chat-bubble {
-        margin: 0 auto; /* Pusatkan chat bubble */
-        width: fit-content;
-        max-width: 90%;
-        text-align: center;
+        padding: 8px 15px;
+        font-size: 0.9em;
     }
     .age-text {
-        font-size: 2em;
-    }
-    .countdown-timer {
-        flex-wrap: wrap; /* Izinkan wrap pada baris baru */
-        gap: 5px; /* Kurangi gap */
-        justify-content: center;
-    }
-    .time-box {
-        padding: 8px 12px;
+        font-size: 1.8em;
     }
     .time-value {
         font-size: 2em;
     }
     .colon {
         font-size: 2em;
+    }
+    .time-label {
+        font-size: 0.6em;
     }
     .gift-button {
-        padding: 12px 25px;
-        font-size: 1em;
+        padding: 10px 20px;
+        font-size: 0.8em;
     }
     .footer-icons {
-        font-size: 1.5em;
-        gap: 10px;
-    }
-}
-
-@media (max-width: 400px) {
-    .profile-pic-wrapper {
-        width: 70px;
-        height: 70px;
-    }
-    .age-text {
-        font-size: 1.8em;
-    }
-    .time-value {
-        font-size: 1.8em;
-    }
-    .colon {
-        font-size: 1.8em;
+        font-size: 1.2em;
     }
 }
