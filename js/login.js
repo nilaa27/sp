@@ -10,10 +10,25 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Toggle Password Visibility ---
     if (togglePassword && passwordInput) {
         togglePassword.addEventListener('click', () => {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            togglePassword.classList.toggle('fa-eye');
-            togglePassword.classList.toggle('fa-eye-slash');
+            // Dapatkan tipe saat ini
+            const currentType = passwordInput.getAttribute('type');
+            const newType = currentType === 'password' ? 'text' : 'password';
+
+            // Pemicu animasi keluar
+            togglePassword.classList.add('text-exit');
+            togglePassword.classList.remove('text-enter');
+
+            // Setelah animasi keluar selesai, ubah teks dan picu animasi masuk
+            togglePassword.addEventListener('animationend', () => {
+                passwordInput.setAttribute('type', newType);
+                if (newType === 'text') {
+                    togglePassword.textContent = 'Hide';
+                } else {
+                    togglePassword.textContent = 'Show';
+                }
+                togglePassword.classList.remove('text-exit');
+                togglePassword.classList.add('text-enter');
+            }, { once: true }); // Pastikan event listener hanya berjalan sekali
         });
     }
 
@@ -40,16 +55,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const username = usernameInput.value.trim();
         const password = passwordInput.value.trim();
 
-        // Basic validation (for this local project)
         if (username === 'admin' && password === '123') {
             window.location.href = 'spotify_surprise.html';
         } else {
             messageElement.textContent = 'Username atau password salah. Mohon coba lagi!';
-            // Clear password field for security
             passwordInput.value = '';
-            // Trigger shake animation for error message
-            messageElement.style.animation = 'none'; // Reset animation
-            void messageElement.offsetWidth; // Trigger reflow
+            
+            // Reset teks toggle ke "Show" dan picu animasi
+            togglePassword.classList.add('text-exit');
+            togglePassword.classList.remove('text-enter');
+            togglePassword.addEventListener('animationend', () => {
+                togglePassword.textContent = 'Show';
+                togglePassword.classList.remove('text-exit');
+                togglePassword.classList.add('text-enter');
+            }, { once: true });
+
+            messageElement.style.animation = 'none';
+            void messageElement.offsetWidth;
             messageElement.style.animation = 'shake 0.5s ease-in-out';
         }
     }
