@@ -3,134 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kado Animasi Keren</title>
+    <title>Kado Pixel Animasi Keren</title>
     <style>
         body {
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #f0f0f0;
+            background-color: #333; /* Background gelap biar pixel menonjol */
             margin: 0;
-            font-family: Arial, sans-serif;
-            overflow: hidden; /* Mencegah scroll saat animasi */
+            font-family: 'Press Start 2P', cursive; /* Font ala game retro */
+            overflow: hidden;
+            image-rendering: pixelated; /* Memastikan gambar (jika ada) terlihat pixelated */
         }
+
+        /* Import Google Font untuk kesan pixel art */
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
         .gift-container {
             position: relative;
-            width: 250px; /* Ukuran kado */
-            height: 250px;
+            width: 200px; /* Ukuran kado */
+            height: 200px;
             cursor: pointer;
-            perspective: 1000px; /* Untuk efek 3D */
-        }
-
-        .gift-box {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.8s ease-out, opacity 0.8s ease-out; /* Transisi untuk kotak */
-            transform-style: preserve-3d; /* Penting untuk 3D */
+            perspective: 600px; /* Untuk efek 3D saat membuka */
+            transform-style: preserve-3d;
+            box-shadow: 0 0 0 5px rgba(255,255,255,0.1); /* Border luar */
+            border-radius: 5px;
+            background-color: #4CAF50; /* Warna dasar kado */
         }
 
         .gift-lid {
             position: absolute;
             width: 100%;
-            height: 50%; /* Setengah tinggi kotak */
-            background-color: #e74c3c; /* Warna tutup kado */
-            border-radius: 10px;
+            height: 50%; /* Tutup kado */
+            background-color: #FFC107; /* Warna tutup kado */
             top: 0;
             left: 0;
             transform-origin: bottom center; /* Titik putar di bagian bawah tutup */
-            transition: transform 0.8s ease-out;
-            z-index: 2; /* Pastikan tutup di atas */
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+            z-index: 2;
+            box-shadow: inset 0 -5px #FFA000, inset 0 5px #FFEB3B, 5px 5px #8BC34A; /* Efek pixel shadow/highlight */
         }
 
         .gift-base {
             position: absolute;
             width: 100%;
             height: 100%;
-            background-color: #c0392b; /* Warna dasar kado */
-            border-radius: 10px;
-            bottom: 0;
+            background-color: #4CAF50; /* Warna dasar kado */
+            top: 0;
             left: 0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: inset 0 -5px #388E3C, inset 0 5px #66BB6A, 5px 5px #8BC34A;
+        }
+
+        .gift-ribbon-v, .gift-ribbon-h {
+            position: absolute;
+            background-color: #D32F2F; /* Warna pita */
+            z-index: 3;
+            transition: transform 0.6s ease-out, opacity 0.6s ease-out;
         }
 
         .gift-ribbon-v {
-            position: absolute;
-            width: 30px;
+            width: 20px;
             height: 100%;
-            background-color: #f1c40f; /* Warna pita */
             left: 50%;
             transform: translateX(-50%);
-            z-index: 3;
+            box-shadow: inset -2px 0 #B71C1C, inset 2px 0 #E57373;
         }
 
         .gift-ribbon-h {
-            position: absolute;
             width: 100%;
-            height: 30px;
-            background-color: #f1c40f; /* Warna pita */
+            height: 20px;
             top: 50%;
             transform: translateY(-50%);
-            z-index: 3;
+            box-shadow: inset 0 -2px #B71C1C, inset 0 2px #E57373;
         }
 
         .gift-content {
             position: absolute;
             width: 80%;
             height: 80%;
-            background-color: #ecf0f1; /* Warna isi kado */
-            border-radius: 5px;
+            background-color: #FFFDE7; /* Warna isi kado */
+            border-radius: 3px;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) scale(0.5); /* Awalnya kecil dan tersembunyi */
+            transform: translate(-50%, -50%) scale(0.1); /* Awalnya sangat kecil dan tersembunyi */
             opacity: 0;
-            transition: transform 0.8s ease-out 0.4s, opacity 0.8s ease-out 0.4s; /* Delay muncul */
+            transition: transform 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.5s, opacity 0.8s ease-out 0.5s; /* Animasi muncul 'pop' */
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            font-size: 24px;
-            color: #2c3e50;
+            font-size: 14px;
+            color: #212121;
             text-align: center;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
-            z-index: 1; /* Di bawah tutup */
             padding: 10px;
+            box-sizing: border-box;
+            line-height: 1.3;
+            z-index: 1;
+            border: 2px solid #FFECB3;
+            box-shadow: 0 0 0 5px #FFECB3, 0 0 0 10px #FFD54F; /* Border pixel untuk konten */
         }
 
-        /* Kelas untuk animasi saat kado terbuka */
+        /* --- Animasi Saat Kado Terbuka --- */
         .gift-container.open .gift-lid {
-            transform: rotateX(90deg) translateY(-100%); /* Tutup terangkat dan memutar */
+            transform: rotateX(80deg) translateY(-120%) translateZ(50px); /* Tutup terangkat dan sedikit maju ke depan */
             opacity: 0; /* Tutup menghilang */
-            transform-origin: bottom center; /* Penting agar rotasi dari bawah */
+            transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.8s ease-out; /* Animasi lebih dinamis */
+        }
+
+        .gift-container.open .gift-ribbon-v {
+            transform: translateX(-50%) translateY(-100%) scaleY(0); /* Pita vertikal naik dan menghilang */
+            opacity: 0;
+        }
+        .gift-container.open .gift-ribbon-h {
+            transform: translateY(-50%) translateX(100%) scaleX(0); /* Pita horizontal geser kanan dan menghilang */
+            opacity: 0;
         }
 
         .gift-container.open .gift-content {
-            transform: translate(-50%, -50%) scale(1); /* Isi membesar */
+            transform: translate(-50%, -50%) scale(1); /* Isi membesar dengan efek 'pop' */
             opacity: 1; /* Isi muncul */
+            animation: bounceIn 0.8s forwards; /* Animasi tambahan untuk muncul */
         }
 
-        /* Bonus: Efek pita menghilang */
-        .gift-container.open .gift-ribbon-v,
-        .gift-container.open .gift-ribbon-h {
-            opacity: 0;
-            transition: opacity 0.3s ease-out;
+        @keyframes bounceIn {
+            0% { transform: translate(-50%, -50%) scale(0.1); opacity: 0; }
+            60% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1); }
         }
 
     </style>
 </head>
 <body>
-    <div class="gift-container" id="myGift">
-        <div class="gift-box">
-            <div class="gift-lid">
-                <div class="gift-ribbon-v"></div>
-                <div class="gift-ribbon-h"></div>
-            </div>
-            <div class="gift-base"></div>
+    <div class="gift-container" id="myPixelGift">
+        <div class="gift-lid">
+            <div class="gift-ribbon-v"></div>
+            <div class="gift-ribbon-h"></div>
         </div>
+        <div class="gift-base"></div>
         <div class="gift-content">
-            <p>Selamat Ulang Tahun!</p>
+            <p>SELAMAT ULANG TAHUN!</p>
             <p>Sudah berapa lama kamu bertahan?</p>
             <p>Sejak 2005-09-28</p>
         </div>
@@ -138,13 +150,14 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const giftContainer = document.getElementById('myGift');
+            const giftContainer = document.getElementById('myPixelGift');
 
             giftContainer.addEventListener('click', function() {
                 // Tambahkan kelas 'open' saat kado diklik
                 giftContainer.classList.add('open');
 
                 // Opsional: Hapus event listener setelah diklik agar tidak bisa diklik ulang
+                // ini penting jika kamu hanya ingin kado terbuka sekali
                 giftContainer.removeEventListener('click', arguments.callee);
             });
         });
