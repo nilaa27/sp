@@ -1,0 +1,198 @@
+/* css/456.css */
+
+body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(to bottom right, #1DB954, #0a5a2a); /* Gradasi hijau Spotify */
+    margin: 0;
+    color: white;
+    text-align: center;
+    overflow: hidden;
+    animation: gradientShift 15s ease infinite alternate;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+.spotify-card {
+    background-color: rgba(18, 18, 18, 0.85); /* Background gelap transparan ala Spotify */
+    padding: 50px;
+    border-radius: 25px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    max-width: 550px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    backdrop-filter: blur(8px);
+    transform: scale(0.8);
+    opacity: 0;
+    animation: cardPopIn 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    box-sizing: border-box;
+}
+
+@keyframes cardPopIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.profile-pic-wrapper {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 5px solid #1DB954; /* Border hijau Spotify */
+    box-shadow: 0 0 20px rgba(29, 185, 84, 0.5);
+    animation: spin 8s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.profile-pic {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.profile-pic:hover {
+    transform: scale(1.05);
+}
+
+h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3em;
+    margin-bottom: 10px;
+    font-weight: 700;
+    color: #1DB954;
+    letter-spacing: -1px;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.title-animation {
+    opacity: 0;
+    animation: textFadeInUp 1s ease-out forwards 0.8s;
+}
+
+@keyframes textFadeInUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+p {
+    font-size: 1.15em;
+    line-height: 1.7;
+    color: #e0e0e0;
+    margin-bottom: 20px;
+}
+
+.fade-in-text {
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out forwards 1.2s;
+}
+
+audio {
+    width: 90%;
+    margin-top: 20px;
+    filter: invert(0.9) saturate(1.2);
+}
+
+.audio-player-animation {
+    opacity: 0;
+    animation: slideInUp 1s ease-out forwards 1.5s;
+}
+
+@keyframes slideInUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.gift-button {
+    background-color: #FFC107;
+    color: #333;
+    padding: 18px 40px;
+    border: none;
+    border-radius: 35px;
+    cursor: pointer;
+    font-size: 1.4em;
+    font-weight: 700;
+    margin-top: 35px;
+    transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    animation: bounceIn 1s ease-out forwards 2s;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    letter-spacing: 0.5px;
+}
+
+.gift-button:hover {
+    background-color: #e0a800;
+    transform: scale(1.03);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.3); opacity: 0; }
+    50% { transform: scale(1.1); opacity: 1; }
+    80% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
+/* Generic fade in for other elements */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .spotify-card {
+        padding: 40px 30px;
+        gap: 20px;
+    }
+    .profile-pic-wrapper {
+        width: 160px;
+        height: 160px;
+    }
+    h1 {
+        font-size: 2.2em;
+    }
+    p {
+        font-size: 1em;
+    }
+    .gift-button {
+        padding: 15px 30px;
+        font-size: 1.2em;
+    }
+}
+
+@media (max-width: 480px) {
+    .spotify-card {
+        padding: 30px 20px;
+    }
+    .profile-pic-wrapper {
+        width: 140px;
+        height: 140px;
+    }
+    h1 {
+        font-size: 1.8em;
+    }
+    p {
+        font-size: 0.9em;
+    }
+    audio {
+        width: 95%;
+    }
+    .gift-button {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
+}
