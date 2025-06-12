@@ -10,9 +10,11 @@
 <body>
     <div class="gift-wrapper">
         <div class="gift-box" id="giftBox">
-            <div class="gift-top"></div>
+            <div class="gift-lid"></div>
+            <div class="gift-body"></div>
             <div class="gift-bow-h"></div>
             <div class="gift-bow-v"></div>
+            
             <div class="open-button" id="openGiftButton">
                 <span>KLIK UNTUK MEMBUKA</span>
                 <span class="pixel-arrow"></span>
@@ -33,7 +35,7 @@
         const giftBox = document.getElementById('giftBox');
         const openGiftButton = document.getElementById('openGiftButton');
         const giftContent = document.getElementById('giftContent');
-        const qrMessage = document.getElementById('qrMessage'); // Ambil elemen pesan QR
+        const qrMessage = document.getElementById('qrMessage');
 
         openGiftButton.addEventListener('click', () => {
             // Sembunyikan tombol buka
@@ -43,20 +45,37 @@
             giftBox.classList.add('is-open');
 
             // Setelah animasi kado membuka selesai, tampilkan konten hadiah
-            giftBox.addEventListener('animationend', (event) => {
-                // Pastikan hanya memicu setelah animasi utama gift-top selesai
-                if (event.animationName === 'openGiftTop' || event.animationName === 'fadeBow') {
-                    giftBox.style.display = 'none'; // Sembunyikan kotak hadiah
-                    giftContent.classList.remove('hidden'); // Tampilkan konten hadiah
-                    giftContent.classList.add('content-reveal'); // Pemicu animasi muncul
-                    
-                    // Sesuaikan pesan QR code di sini (jika perlu)
-                    // qrMessage.textContent = "PESAN KHUSUS UNTUKMU: [Tulis pesan di sini]!";
+            // Kita akan menunggu animasi tutup dan pita selesai
+            const giftLid = document.querySelector('.gift-lid');
+            const giftBowH = document.querySelector('.gift-bow-h');
+
+            let animationsCompleted = 0;
+            const totalAnimationsToWaitFor = 2; // lid dan bow
+
+            const handleAnimationEnd = (event) => {
+                if (event.target === giftLid || event.target === giftBowH) {
+                    animationsCompleted++;
+                    if (animationsCompleted === totalAnimationsToWaitFor) {
+                        // Sembunyikan kotak hadiah setelah semua animasi opening selesai
+                        giftBox.style.display = 'none'; 
+                        giftContent.classList.remove('hidden'); // Tampilkan konten hadiah
+                        giftContent.classList.add('content-reveal'); // Pemicu animasi muncul
+                        
+                        // Hapus event listener agar tidak terpicu lagi
+                        giftLid.removeEventListener('animationend', handleAnimationEnd);
+                        giftBowH.removeEventListener('animationend', handleAnimationEnd);
+                    }
                 }
-            }, { once: true }); // Pastikan event listener hanya berjalan sekali
+            };
+
+            giftLid.addEventListener('animationend', handleAnimationEnd);
+            giftBowH.addEventListener('animationend', handleAnimationEnd);
         });
 
         function goBack() {
+            // Ini akan kembali ke halaman sebelumnya di riwayat browser.
+            // Jika halaman ini adalah halaman pertama yang dibuka, maka tidak akan terjadi apa-apa.
+            // Untuk skenario game/aplikasi, mungkin perlu URL spesifik.
             window.history.back();
         }
 
