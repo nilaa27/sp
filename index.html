@@ -3,113 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Dulu Ya!</title>
+    <title>Masuk Dulu Ya!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #f0f2f5;
+            background: linear-gradient(135deg, #f0f2f5 0%, #c8e6c9 100%); /* Gradasi lembut */
             margin: 0;
-            animation: fadeIn 1s ease-in-out; /* Animasi fade in saat halaman load */
+            color: #333;
+            animation: fadeIn 1.2s ease-in-out;
         }
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
         .login-container {
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            padding: 50px 40px;
+            border-radius: 20px; /* Sudut lebih membulat */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             text-align: center;
-            animation: slideInDown 0.8s ease-out; /* Animasi slide in dari atas */
+            max-width: 400px;
+            width: 90%;
+            transform: translateY(0);
+            animation: slideInUp 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Kurva animasi lebih smooth */
         }
-        @keyframes slideInDown {
-            from { transform: translateY(-50px); opacity: 0; }
+        @keyframes slideInUp {
+            from { transform: translateY(50px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
         h2 {
-            color: #333;
-            margin-bottom: 30px;
-            animation: scaleUp 0.6s ease-out; /* Animasi scale up */
+            font-size: 2.2em;
+            color: #2c3e50;
+            margin-bottom: 35px;
+            font-weight: 600;
+            animation: bounceIn 0.8s ease-out;
         }
-        @keyframes scaleUp {
-            from { transform: scale(0.8); opacity: 0.7; }
-            to { transform: scale(1); opacity: 1; }
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 1; }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); }
         }
         .input-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             text-align: left;
         }
         .input-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             color: #555;
-            font-weight: bold;
-            opacity: 0;
-            animation: fadeIn 0.5s ease-in-out forwards 0.3s; /* Fade in setelah sedikit delay */
+            font-weight: 400;
+            font-size: 0.95em;
+            animation: fadeIn 0.6s ease-in-out forwards 0.4s;
         }
         .input-group input {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-sizing: border-box; /* Agar padding tidak menambah lebar */
-            transform: translateY(10px);
-            opacity: 0;
-            animation: slideInUp 0.6s ease-out forwards 0.4s; /* Slide in dari bawah dengan delay */
+            padding: 14px 18px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px; /* Input lebih membulat */
+            box-sizing: border-box;
+            font-size: 1em;
+            color: #333;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            animation: slideInRight 0.7s ease-out forwards 0.5s;
         }
-        @keyframes slideInUp {
-            from { transform: translateY(10px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+        @keyframes slideInRight {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .input-group input:focus {
+            outline: none;
+            border-color: #1DB954; /* Border hijau Spotify saat focus */
+            box-shadow: 0 0 0 3px rgba(29, 185, 84, 0.2);
         }
         button {
             background-color: #1DB954; /* Warna hijau Spotify */
             color: white;
-            padding: 12px 25px;
+            padding: 15px 30px;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease, transform 0.2s ease-in-out; /* Transisi untuk hover */
-            animation: pulse 1.5s infinite alternate; /* Animasi berdenyut */
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            animation: pulse 1.8s infinite alternate;
+            box-shadow: 0 5px 15px rgba(29, 185, 84, 0.3);
         }
         @keyframes pulse {
-            from { transform: scale(1); }
-            to { transform: scale(1.05); }
+            0% { transform: scale(1); box-shadow: 0 5px 15px rgba(29, 185, 84, 0.3); }
+            100% { transform: scale(1.03); box-shadow: 0 8px 20px rgba(29, 185, 84, 0.5); }
         }
         button:hover {
             background-color: #179b47;
-            transform: scale(1.08); /* Efek membesar saat hover */
+            transform: scale(1.02);
+            box-shadow: 0 7px 20px rgba(29, 185, 84, 0.4);
         }
         .message {
-            color: red;
-            margin-top: 15px;
-            font-weight: bold;
-            animation: shake 0.5s ease-in-out; /* Animasi goyang jika ada pesan error */
+            color: #e74c3c; /* Merah yang lebih lembut */
+            margin-top: 20px;
+            font-weight: 600;
+            font-size: 0.9em;
+            animation: shake 0.5s ease-in-out;
         }
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-            20%, 40%, 60%, 80% { transform: translateX(5px); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
+            20%, 40%, 60%, 80% { transform: translateX(8px); }
         }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <h2>Selamat Datang!</h2>
+        <h2>Yuk, Masuk Dulu!</h2>
         <div class="input-group">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="admin">
         </div>
         <div class="input-group">
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="***">
         </div>
-        <button onclick="login()">Login</button>
+        <button onclick="login()">Lanjutkan</button>
         <p class="message" id="loginMessage"></p>
     </div>
 
@@ -120,10 +139,10 @@
             const messageElement = document.getElementById('loginMessage');
 
             // Cek username dan password
-            if (usernameInput === 'admin' && passwordInput === '123') {
-                window.location.href = 'spotify_surprise.html'; // Arahkan ke halaman kejutan
+            if (usernameInput === 'mayfa' && passwordInput === '1') {
+                window.location.href = 'spotify_surprise.html';
             } else {
-                messageElement.textContent = 'Username atau password salah. Coba lagi!';
+                messageElement.textContent = 'Username atau password salah. Mohon coba lagi!';
             }
         }
     </script>
