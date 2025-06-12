@@ -93,7 +93,8 @@ h2 {
     background-color: #3a3a5a; /* Darker input background */
     box-shadow: inset 2px 2px 0 #1a1a2e; /* Inner pixel shadow */
     animation: slideInRightPixel 0.6s steps(10, end) forwards 0.4s;
-    padding-right: 70px; /* Ruang untuk teks SHOW */
+    padding-right: 45px; /* Ruang untuk ikon mata */
+    height: 48px; /* Pastikan tinggi input konsisten */
 }
 
 @keyframes slideInRightPixel {
@@ -109,45 +110,19 @@ h2 {
 
 .toggle-password {
     position: absolute;
-    right: 12px; /* Sesuaikan posisi horizontal teks */
-    top: calc(50% + 5px); /* Menyesuaikan top agar teks di tengah input field */
-    transform: translateY(-50%); /* Geser ke atas setengah tinggi elemen */
+    right: 15px; /* Tetap 15px dari kanan */
+    top: 50%; /* Acuan di tengah */
+    transform: translateY(-50%); /* Geser ke atas setengah tinggi ikon agar presisi */
     cursor: pointer;
-    color: #00ff00; /* Green text */
-    font-family: 'VT323', monospace;
-    font-size: 0.9em;
-    letter-spacing: 1px; /* Spasi antar huruf */
-    text-transform: uppercase;
-    text-shadow: 1px 1px 0 #000;
-    
-    transition: opacity 0.1s steps(1); /* Sharp pixel transition */
-    animation: none; /* No initial animation */
+    color: #00ff00; /* Warna hijau pixel */
+    transition: color 0.1s steps(1); /* Transisi pixelated untuk warna */
+    font-size: 1.1em; /* Ukuran ikon mata */
+    line-height: 1; /* Penting agar ikon tidak terpengaruh tinggi baris teks */
+    /* text-shadow: 1px 1px 0 #000; /* Bisa ditambahkan jika ingin efek pixel pada ikon */
 }
-
-/* Animasi saat teks muncul */
-.toggle-password.text-enter {
-    animation: textToggleEnter 0.2s steps(2) forwards;
-}
-
-/* Animasi saat teks keluar */
-.toggle-password.text-exit {
-    animation: textToggleExit 0.2s steps(2) forwards;
-}
-
-@keyframes textToggleEnter {
-    0% { opacity: 0; transform: translateY(-55%); }
-    100% { opacity: 1; transform: translateY(-50%); }
-}
-
-@keyframes textToggleExit {
-    0% { opacity: 1; transform: translateY(-50%); }
-    100% { opacity: 0; transform: translateY(-45%); }
-}
-
 
 .toggle-password:hover {
     color: #ff00ff; /* Magenta on hover */
-    text-shadow: 1px 1px 0 #000, 0 0 5px #ff00ff;
 }
 
 button {
@@ -203,12 +178,15 @@ button:hover {
     }
     .input-group input {
         padding: 10px 12px;
-        padding-right: 60px;
+        padding-right: 40px; /* Sesuaikan padding untuk ikon di mobile */
         font-size: 1em;
+        height: 42px; /* Sesuaikan tinggi input mobile */
     }
     .toggle-password {
-        right: 10px;
-        font-size: 0.8em;
+        right: 10px; /* Sesuaikan posisi ikon di mobile */
+        font-size: 1em; /* Ukuran ikon di mobile */
+        top: 74%; /* Mempertahankan presisi yang Anda temukan */
+        transform: translateY(-50%); /* Tetap -50% */
     }
     button {
         padding: 10px 20px;
