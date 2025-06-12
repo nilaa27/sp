@@ -185,7 +185,7 @@ button:hover {
     .toggle-password {
         right: 10px; /* Sesuaikan posisi ikon di mobile */
         font-size: 1em; /* Ukuran ikon di mobile */
-        top: 74%; /* Mempertahankan presisi yang Anda temukan */
+        top: 72%; /* Mempertahankan presisi yang Anda temukan */
         transform: translateY(-50%); /* Tetap -50% */
     }
     button {
