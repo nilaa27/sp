@@ -7,11 +7,11 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #1a1a2e;
+    background-color: #1a1a2e; /* Dark, retro background */
     margin: 0;
     color: #e0e0e0;
     animation: fadeInPixel 1.2s steps(15, end);
-    overflow-x: hidden;
+    overflow: hidden; /* Pastikan tidak ada scroll sampai konten muncul */
     padding: 30px 0;
     box-sizing: border-box;
 }
@@ -21,49 +21,179 @@ body {
     to { opacity: 1; }
 }
 
-.gift-container {
+.gift-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 60px); /* Sesuaikan dengan padding body */
+    width: 100%;
+}
+
+/* --- Gift Box Styles --- */
+.gift-box {
+    position: relative;
+    width: 200px; /* Ukuran dasar kado */
+    height: 150px;
+    background-color: #ff00ff; /* Magenta untuk kado */
+    border: 4px solid #cc00cc; /* Border gelap */
+    box-shadow: 8px 8px 0 #000; /* Pixel shadow 3D */
+    animation: floatUp 2s steps(2) infinite alternate; /* Animasi melayang */
+    cursor: pointer;
+    overflow: hidden; /* Untuk memastikan pita tidak keluar saat animasi */
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-10px); }
+}
+
+.gift-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30px; /* Tinggi tutup kado */
+    background-color: #ff00ff; /* Warna sama dengan badan kado */
+    border-bottom: 4px solid #cc00cc;
+    box-shadow: 0 4px 0 #000; /* Bayangan tutup */
+    transform-origin: bottom center; /* Titik putar untuk membuka */
+    z-index: 10; /* Di atas pita */
+    transition: transform 0.3s steps(3); /* Animasi buka tutup */
+}
+
+.gift-bow-h, .gift-bow-v {
+    position: absolute;
+    background-color: #00ff00; /* Hijau neon untuk pita */
+    box-shadow: 1px 1px 0 #000;
+    z-index: 5; /* Di bawah tutup, di atas badan kado */
+    transition: opacity 0.3s steps(3); /* Animasi fade out pita */
+}
+
+.gift-bow-h { /* Pita Horizontal */
+    width: 100%;
+    height: 10px;
+    top: calc(50% - 5px);
+    left: 0;
+}
+
+.gift-bow-v { /* Pita Vertikal */
+    width: 10px;
+    height: 100%;
+    top: 0;
+    left: calc(50% - 5px);
+}
+
+/* Animasi membuka kado */
+.gift-box.is-open .gift-top {
+    transform: rotateX(-90deg) translateY(-20px); /* Membuka ke belakang */
+    animation: openGiftTop 0.4s steps(4) forwards;
+}
+.gift-box.is-open .gift-bow-h,
+.gift-box.is-open .gift-bow-v {
+    opacity: 0; /* Pita menghilang */
+    animation: fadeBow 0.3s steps(3) forwards;
+}
+
+@keyframes openGiftTop {
+    0% { transform: rotateX(0deg) translateY(0); }
+    100% { transform: rotateX(-90deg) translateY(-20px); }
+}
+@keyframes fadeBow {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+
+.open-button {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #00ff00; /* Hijau neon */
+    color: #1a1a2e;
+    padding: 8px 15px;
+    border-radius: 0;
+    border: 2px solid #000;
+    box-shadow: 3px 3px 0 #ff00ff; /* Magenta shadow */
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    animation: pulseButton 1.5s steps(2) infinite alternate;
+    z-index: 12; /* Di atas semua elemen kado */
+}
+.open-button:hover {
+    background-color: #ff00ff;
+    color: #1a1a2e;
+    box-shadow: 3px 3px 0 #00ff00;
+}
+@keyframes pulseButton {
+    0% { transform: translateX(-50%) scale(1); }
+    100% { transform: translateX(-50%) scale(1.03); }
+}
+
+.pixel-arrow {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #1a1a2e; /* Panah ke bawah */
+    animation: arrowBounce 0.5s steps(1) infinite alternate;
+}
+@keyframes arrowBounce {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(2px); }
+}
+
+/* --- Gift Content Styles (Setelah Kado Terbuka) --- */
+.gift-content {
     background-color: #2e2e4e;
-    padding: 40px;
+    padding: 30px;
     border-radius: 0;
     border: 2px solid #5d5d81;
     box-shadow: 6px 6px 0 #000;
     max-width: 550px;
     width: 90%;
-    animation: slideInPixel 1s steps(12, end);
+    text-align: center;
     box-sizing: border-box;
-    position: relative;
-}
-.gift-container::after {
-    content: '';
-    position: absolute;
-    top: -2px; left: -2px; right: -2px; bottom: -2px;
-    border: 2px dashed #4e4e6a;
-    pointer-events: none;
+    display: none; /* Default hidden */
+    animation: fadeInPixel 0.8s steps(10, end); /* Animasi fade in default */
 }
 
-@keyframes slideInPixel {
-    from { transform: translateY(-50px) scale(0.9); opacity: 0; }
-    to { transform: translateY(0) scale(1); opacity: 1; }
+.gift-content.hidden {
+    display: none;
+}
+
+.gift-content.content-reveal {
+    display: block; /* Akan diubah JS */
+    animation: contentReveal 1s steps(10, end); /* Animasi reveal */
+}
+
+@keyframes contentReveal {
+    from { opacity: 0; transform: translateY(30px) scale(0.9); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 h2 {
     font-family: 'Press Start 2P', cursive;
     font-size: 1.8em;
-    color: #ff00ff; /* Magenta for title */
-    margin-bottom: 30px;
+    color: #ff00ff; /* Magenta untuk judul */
+    margin-bottom: 25px;
     text-shadow: 2px 2px 0 #000;
-    animation: textScanline 1s steps(1) infinite alternate;
 }
 
 #qrCodeImage {
-    width: 280px;
-    height: 280px;
+    width: 250px; /* Ukuran QR code */
+    height: 250px;
     border: 4px solid #00ff00; /* Green pixel border */
     border-radius: 0;
-    margin: 25px auto;
+    margin: 20px auto;
     display: block;
     box-shadow: 4px 4px 0 #ff00ff; /* Magenta pixel shadow */
-    image-rendering: pixelated; /* PENTING: Untuk memastikan gambar tetap pixelated */
+    image-rendering: pixelated; /* Untuk efek pixel */
     animation: pulsePixelLight 2s steps(4) infinite alternate;
 }
 @keyframes pulsePixelLight {
@@ -77,18 +207,17 @@ h2 {
     line-height: 1.5;
     margin-top: 20px;
     text-shadow: 1px 1px 0 #000;
-    animation: fadeInPixel 0.8s steps(10, end) forwards 0.5s;
 }
 
 .back-button {
     background-color: #00ff00;
     color: #1a1a2e;
-    padding: 12px 25px;
+    padding: 10px 20px;
     border: none;
     border-radius: 0;
     cursor: pointer;
     font-family: 'Press Start 2P', cursive;
-    font-size: 0.9em;
+    font-size: 0.8em;
     box-shadow: 4px 4px 0 #000;
     transition: all 0.1s steps(1);
     margin-top: 30px;
@@ -102,21 +231,35 @@ h2 {
 
 /* --- Responsive Adjustments --- */
 @media (max-width: 600px) {
-    .gift-container {
-        padding: 30px 20px;
+    .gift-box {
+        width: 160px;
+        height: 120px;
+    }
+    .open-button {
+        font-size: 0.6em;
+        padding: 6px 12px;
+        bottom: 15px;
+    }
+    .pixel-arrow {
+        border-left-width: 4px;
+        border-right-width: 4px;
+        border-top-width: 4px;
+    }
+    .gift-content {
+        padding: 25px;
     }
     h2 {
         font-size: 1.4em;
     }
     #qrCodeImage {
-        width: 220px;
-        height: 220px;
+        width: 200px;
+        height: 200px;
     }
     #qrMessage {
         font-size: 0.9em;
     }
     .back-button {
-        padding: 10px 20px;
-        font-size: 0.8em;
+        padding: 8px 15px;
+        font-size: 0.7em;
     }
 }
