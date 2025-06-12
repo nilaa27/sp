@@ -1,33 +1,56 @@
-document.getElementById('loginForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Mencegah form dari submit default
+// js/login.js
 
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    const messageElement = document.getElementById('message');
+document.addEventListener('DOMContentLoaded', () => {
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+    const loginButton = document.getElementById('loginButton');
+    const usernameInput = document.getElementById('username');
+    const messageElement = document.getElementById('loginMessage');
 
-    // Mengirim data ke server menggunakan Fetch API
-    fetch('login.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
-    })
-    .then(response => response.json()) // Menguraikan respons JSON
-    .then(data => {
-        if (data.success) {
-            messageElement.textContent = data.message;
-            messageElement.className = 'message success';
-            // Anda bisa mengarahkan user ke halaman lain di sini
-            // window.location.href = 'dashboard.html';
+    // --- Toggle Password Visibility ---
+    if (togglePassword && passwordInput) {
+        togglePassword.addEventListener('click', () => {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            togglePassword.classList.toggle('fa-eye');
+            togglePassword.classList.toggle('fa-eye-slash');
+        });
+    }
+
+    // --- Login Logic ---
+    if (loginButton) {
+        loginButton.addEventListener('click', () => {
+            performLogin();
+        });
+
+        // Allow login on 'Enter' key press
+        usernameInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performLogin();
+            }
+        });
+        passwordInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performLogin();
+            }
+        });
+    }
+
+    function performLogin() {
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        // Basic validation (for this local project)
+        if (username === 'admin' && password === '123') {
+            window.location.href = 'spotify_surprise.html';
         } else {
-            messageElement.textContent = data.message;
-            messageElement.className = 'message'; // Default (error)
+            messageElement.textContent = 'Username atau password salah. Mohon coba lagi!';
+            // Clear password field for security
+            passwordInput.value = '';
+            // Trigger shake animation for error message
+            messageElement.style.animation = 'none'; // Reset animation
+            void messageElement.offsetWidth; // Trigger reflow
+            messageElement.style.animation = 'shake 0.5s ease-in-out';
         }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        messageElement.textContent = 'Terjadi kesalahan saat menghubungi server.';
-        messageElement.className = 'message';
-    });
+    }
 });
