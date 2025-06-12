@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginButton = document.getElementById('loginButton');
     const usernameInput = document.getElementById('username');
     const messageElement = document.getElementById('loginMessage');
-    const loginContainer = document.querySelector('.login-container'); // Ambil container
+    const loginContainer = document.querySelector('.login-container');
 
     // Tambahkan class 'loaded' setelah animasi slideInPixel selesai
     loginContainer.addEventListener('animationend', (event) => {
@@ -19,20 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Toggle Password Visibility ---
     if (togglePassword && passwordInput) {
         togglePassword.addEventListener('click', () => {
-            const currentType = passwordInput.getAttribute('type');
-            const newType = currentType === 'password' ? 'text' : 'password';
-
-            togglePassword.classList.add('text-exit');
-            togglePassword.classList.remove('text-enter');
-
-            // Gunakan setTimeout sebagai pengganti animationend untuk transisi yang lebih cepat
-            // Karena steps() animationend mungkin tidak selalu stabil untuk transisi sangat cepat.
-            setTimeout(() => {
-                passwordInput.setAttribute('type', newType);
-                togglePassword.textContent = newType === 'text' ? 'HIDE' : 'SHOW';
-                togglePassword.classList.remove('text-exit');
-                togglePassword.classList.add('text-enter');
-            }, 100); // Durasi setTimeout harus kurang dari atau sama dengan durasi animasi CSS (0.2s)
+            // Toggle the type attribute
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            // Toggle the eye icon classes
+            togglePassword.classList.toggle('fa-eye');
+            togglePassword.classList.toggle('fa-eye-slash');
         });
     }
 
@@ -64,14 +57,9 @@ document.addEventListener('DOMContentLoaded', () => {
             messageElement.textContent = 'ERROR: DATA TIDAK VALID.';
             passwordInput.value = '';
             
-            // Reset toggle text ke "SHOW"
-            togglePassword.classList.add('text-exit');
-            togglePassword.classList.remove('text-enter');
-            setTimeout(() => {
-                togglePassword.textContent = 'SHOW';
-                togglePassword.classList.remove('text-exit');
-                togglePassword.classList.add('text-enter');
-            }, 100);
+            // Reset ikon mata ke fa-eye (jika sebelumnya fa-eye-slash)
+            togglePassword.classList.remove('fa-eye-slash');
+            togglePassword.classList.add('fa-eye');
 
             messageElement.style.animation = 'none';
             void messageElement.offsetWidth;
