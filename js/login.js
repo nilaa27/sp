@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);
             
-            // Toggle the eye icon classes
+            // HANYA toggle kelas ikon Font Awesome, tanpa mengubah teks
             togglePassword.classList.toggle('fa-eye');
             togglePassword.classList.toggle('fa-eye-slash');
         });
@@ -58,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
             passwordInput.value = '';
             
             // Reset ikon mata ke fa-eye (jika sebelumnya fa-eye-slash)
+            // Tanpa mengubah teks, hanya mengatur kembali ikon
             togglePassword.classList.remove('fa-eye-slash');
             togglePassword.classList.add('fa-eye');
 
