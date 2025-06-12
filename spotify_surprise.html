@@ -3,33 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surprise Ulang Tahun Spesial!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <title>Kejutan Spesial!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="css/456.css">
 </head>
 <body>
-    <div class="spotify-card">
-        <div class="profile-pic-wrapper">
-            <img id="birthdayPersonPic" src="images/your_photo.jpg" alt="Foto Orang Ulang Tahun" class="profile-pic">
+    <div class="main-container">
+        <div class="header-section">
+            <div class="profile-area">
+                <div class="profile-pic-wrapper">
+                    <img id="birthdayPersonPic" src="images/your_photo.jpg" alt="Foto Orang Spesial" class="profile-pic">
+                </div>
+                <div class="chat-bubble">
+                    How long have we been together? <i class="fa-solid fa-heart"></i>
+                </div>
+            </div>
         </div>
-        <h1 class="title-animation">Selamat Ulang Tahun, [Nama Orang Ulang Tahun]!</h1>
-        <p class="fade-in-text">Semoga hari ini penuh kebahagiaan, tawa, dan semua keinginanmu tercapai. Kamu adalah pribadi yang luar biasa dan spesial!</p>
-        <p class="fade-in-text">Ini playlist khusus untukmu di hari istimewa ini, semoga suka ya:</p>
-        <audio controls autoplay loop class="audio-player-animation">
-            <source src="music/your_song.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-        <button class="gift-button" onclick="showGift()">Buka Hadiahmu!</button>
+
+        <div class="countdown-section">
+            <h1 id="ageDisplay" class="age-text">0 Years 0 Months</h1>
+            <div class="countdown-timer">
+                <div class="time-box">
+                    <span id="days" class="time-value">00</span>
+                    <span class="time-label">Days</span>
+                </div>
+                <span class="colon">:</span>
+                <div class="time-box">
+                    <span id="hours" class="time-value">00</span>
+                    <span class="time-label">Hrs</span>
+                </div>
+                <span class="colon">:</span>
+                <div class="time-box">
+                    <span id="minutes" class="time-value">00</span>
+                    <span class="time-label">Mins</span>
+                </div>
+                <span class="colon">:</span>
+                <div class="time-box">
+                    <span id="seconds" class="time-value">00</span>
+                    <span class="time-label">Secs</span>
+                </div>
+            </div>
+            
+            <button class="gift-button" onclick="showGift()">
+                <i class="fa-solid fa-lock"></i> Yen & Game
+            </button>
+
+            <div class="footer-icons">
+                <i class="fa-solid fa-heart"></i>
+                <i class="fa-solid fa-paw"></i>
+                <i class="fa-solid fa-paw"></i>
+                <i class="fa-solid fa-heart"></i>
+            </div>
+            
+            <p class="made-with-love">Made with love</p>
+        </div>
     </div>
 
     <script>
+        // Tanggal lahir orang yang berulang tahun (contoh: 15 Mei 2000)
+        // Format: YYYY-MM-DD
+        const birthDateStr = "2000-05-15"; // Ubah ini!
+        const birthDate = new Date(birthDateStr);
+
+        // Tanggal target untuk countdown (contoh: ulang tahun berikutnya)
+        // Akan dihitung otomatis dari tanggal lahir.
+        let nextBirthday = new Date(new Date().getFullYear(), birthDate.getMonth(), birthDate.getDate());
+
+        // Jika ulang tahun berikutnya sudah lewat di tahun ini, set ke tahun depan
+        if (nextBirthday < new Date()) {
+            nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
+        }
+
+        // --- Fungsi untuk memperbarui tampilan umur ---
+        function updateAgeDisplay() {
+            const now = new Date();
+            let years = now.getFullYear() - birthDate.getFullYear();
+            let months = now.getMonth() - birthDate.getMonth();
+            let daysInMonth = now.getDate() - birthDate.getDate();
+
+            if (daysInMonth < 0) {
+                months--;
+                // Hitung hari di bulan sebelumnya
+                const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+                daysInMonth = prevMonth.getDate() + daysInMonth; // daysInMonth masih negatif
+            }
+
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            // Memperbarui tampilan umur
+            document.getElementById('ageDisplay').textContent = 
+                `${years} Years ${months} Months`;
+        }
+
+        // --- Fungsi untuk memperbarui countdown ---
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = nextBirthday.getTime() - now;
+
+            if (distance < 0) {
+                // Jika countdown sudah lewat (ulang tahun sudah tiba)
+                document.getElementById("days").textContent = "00";
+                document.getElementById("hours").textContent = "00";
+                document.getElementById("minutes").textContent = "00";
+                document.getElementById("seconds").textContent = "00";
+                document.getElementById("ageDisplay").textContent = "Selamat Ulang Tahun!";
+                
+                // Set next birthday to next year immediately for continuous countdown
+                nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").textContent = String(days).padStart(2, '0');
+            document.getElementById("hours").textContent = String(hours).padStart(2, '0');
+            document.getElementById("minutes").textContent = String(minutes).padStart(2, '0');
+            document.getElementById("seconds").textContent = String(seconds).padStart(2, '0');
+
+            updateAgeDisplay(); // Perbarui juga tampilan umur setiap detik
+        }
+
+        // Panggil fungsi sekali saat dimuat untuk menghindari delay awal
+        updateCountdown();
+
+        // Perbarui countdown setiap 1 detik
+        setInterval(updateCountdown, 1000);
+
         function showGift() {
             window.location.href = 'gift_qr.html';
         }
-        // TIPS: Cara mengganti foto dan musik:
-        // 1. Ganti 'images/your_photo.jpg' dengan path foto yang kamu inginkan.
-        // 2. Ganti 'music/your_song.mp3' dengan path lagu yang kamu inginkan.
-        // 3. Ganti "[Nama Orang Ulang Tahun]" dengan nama yang berulang tahun.
     </script>
 </body>
 </html>
