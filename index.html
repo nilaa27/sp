@@ -3,180 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Masuk Dulu Ya!</title>
+    <title>Selamat Datang!</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #f0f2f5 0%, #c8e6c9 100%); /* Gradasi lembut */
-            margin: 0;
-            color: #333;
-            animation: fadeIn 1.2s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .login-container {
-            background-color: #ffffff;
-            padding: 50px 40px;
-            border-radius: 20px; /* Sudut lebih membulat */
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-            transform: translateY(0);
-            animation: slideInUp 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Kurva animasi lebih smooth */
-        }
-        @keyframes slideInUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        h2 {
-            font-size: 2.2em;
-            color: #2c3e50;
-            margin-bottom: 35px;
-            font-weight: 600;
-            animation: bounceIn 0.8s ease-out;
-        }
-        @keyframes bounceIn {
-            0% { transform: scale(0.3); opacity: 0; }
-            50% { transform: scale(1.05); opacity: 1; }
-            70% { transform: scale(0.9); }
-            100% { transform: scale(1); }
-        }
-        .input-group {
-            margin-bottom: 25px;
-            text-align: left;
-            position: relative; /* Penting untuk penempatan ikon */
-            /* Tambahan untuk debuging: border: 1px solid red; */
-        }
-        .input-group label {
-            display: block;
-            margin-bottom: 10px;
-            color: #555;
-            font-weight: 400;
-            font-size: 0.95em;
-            animation: fadeIn 0.6s ease-in-out forwards 0.4s;
-        }
-        .input-group input {
-            width: 100%;
-            padding: 14px 18px;
-            border: 1px solid #e0e0e0;
-            border-radius: 10px; /* Input lebih membulat */
-            box-sizing: border-box;
-            font-size: 1em;
-            color: #333;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            animation: slideInRight 0.7s ease-out forwards 0.5s;
-            padding-right: 50px; /* Memberi ruang lebih untuk ikon mata */
-        }
-        @keyframes slideInRight {
-            from { transform: translateX(-20px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        .input-group input:focus {
-            outline: none;
-            border-color: #1DB954; /* Border hijau Spotify saat focus */
-            box-shadow: 0 0 0 3px rgba(29, 185, 84, 0.2);
-        }
-        .toggle-password {
-            position: absolute;
-            right: 18px; /* Sesuaikan posisi horizontal ikon */
-            top: 50%; /* Posisikan ke tengah vertikal input */
-            transform: translateY(20%); /* Penyesuaian halus ke bawah */
-            cursor: pointer;
-            color: #888;
-            transition: color 0.3s ease;
-            font-size: 1.1em; /* Ukuran ikon mata */
-            line-height: 1; /* Pastikan line-height tidak mengganggu posisi */
-        }
-        .toggle-password:hover {
-            color: #333;
-        }
-        button {
-            background-color: #1DB954; /* Warna hijau Spotify */
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 1.1em;
-            font-weight: 600;
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-            animation: pulse 1.8s infinite alternate;
-            box-shadow: 0 5px 15px rgba(29, 185, 84, 0.3);
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 5px 15px rgba(29, 185, 84, 0.3); }
-            100% { transform: scale(1.03); box-shadow: 0 8px 20px rgba(29, 185, 84, 0.5); }
-        }
-        button:hover {
-            background-color: #179b47;
-            transform: scale(1.02);
-            box-shadow: 0 7px 20px rgba(29, 185, 84, 0.4);
-        }
-        .message {
-            color: #e74c3c; /* Merah yang lebih lembut */
-            margin-top: 20px;
-            font-weight: 600;
-            font-size: 0.9em;
-            animation: shake 0.5s ease-in-out;
-        }
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
-            20%, 40%, 60%, 80% { transform: translateX(8px); }
-        }
-    </style>
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
     <div class="login-container">
-        <h2>Yuk, Masuk Dulu!</h2>
+        <h2>Akses Kejutan Spesial Ini</h2>
         <div class="input-group">
             <label for="username">Username</label>
-            <input type="text" id="username" name="username" placeholder="admin">
+            <input type="text" id="username" name="username" placeholder="Masukkan username">
         </div>
         <div class="input-group">
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="***">
+            <input type="password" id="password" name="password" placeholder="Masukkan password">
             <i class="fa-solid fa-eye toggle-password" id="togglePassword"></i>
         </div>
-        <button onclick="login()">Lanjutkan</button>
+        <button id="loginButton">Lanjutkan</button>
         <p class="message" id="loginMessage"></p>
     </div>
 
-    <script>
-        const togglePassword = document.getElementById('togglePassword');
-        const passwordInput = document.getElementById('password');
-
-        togglePassword.addEventListener('click', function () {
-            // Toggle the type attribute
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            
-            // Toggle the eye icon
-            this.classList.toggle('fa-eye');
-            this.classList.toggle('fa-eye-slash');
-        });
-
-        function login() {
-            const usernameInput = document.getElementById('username').value;
-            const passwordValue = passwordInput.value;
-            const messageElement = document.getElementById('loginMessage');
-
-            // Cek username dan password
-            if (usernameInput === 'admin' && passwordValue === '123') {
-                window.location.href = 'spotify_surprise.html';
-            } else {
-                messageElement.textContent = 'Username atau password salah. Mohon coba lagi!';
-            }
-        }
-    </script>
+    <script src="js/login.js"></script>
 </body>
 </html>
