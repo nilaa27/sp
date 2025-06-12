@@ -3,38 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kado Pixel Animasi Keren</title>
-    <link rel="stylesheet" href="gift.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <title>BUKA KADO SPESIAL!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/gift.css">
 </head>
 <body>
-    <div class="gift-container" id="myPixelGift">
-        <div class="gift-lid">
-            <div class="gift-ribbon-v"></div>
-            <div class="gift-ribbon-h"></div>
+    <div class="gift-wrapper">
+        <div class="gift-box" id="giftBox">
+            <div class="gift-top"></div>
+            <div class="gift-bow-h"></div>
+            <div class="gift-bow-v"></div>
+            <div class="open-button" id="openGiftButton">
+                <span>KLIK UNTUK MEMBUKA</span>
+                <span class="pixel-arrow"></span>
+            </div>
         </div>
-        <div class="gift-base"></div>
-        <div class="gift-content">
-            <p>SELAMAT ULANG TAHUN!</p>
-            <p>Sudah berapa lama kamu bertahan?</p>
-            <p>Sejak 2005-09-28</p>
+
+        <div class="gift-content hidden" id="giftContent">
+            <h2>PESAN RAHASIA TERUNGKAP!</h2>
+            <img id="qrCodeImage" src="images/your_qrcode.png" alt="[DATA_HADIAH]">
+            <p id="qrMessage">
+                [INSTRUKSI]: PINDAI KODE INI UNTUK MENGAKSES PESAN TERENKRIPSI!
+            </p>
+            <button class="back-button" onclick="goBack()">KEMBALI KE TERMINAL</button>
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const giftContainer = document.getElementById('myPixelGift');
+        const giftBox = document.getElementById('giftBox');
+        const openGiftButton = document.getElementById('openGiftButton');
+        const giftContent = document.getElementById('giftContent');
+        const qrMessage = document.getElementById('qrMessage'); // Ambil elemen pesan QR
 
-            giftContainer.addEventListener('click', function() {
-                // Tambahkan kelas 'open' saat kado diklik
-                giftContainer.classList.add('open');
+        openGiftButton.addEventListener('click', () => {
+            // Sembunyikan tombol buka
+            openGiftButton.style.display = 'none';
 
-                // Opsional: Hapus event listener setelah diklik agar tidak bisa diklik ulang
-                giftContainer.removeEventListener('click', arguments.callee);
-            });
+            // Tambahkan kelas untuk animasi membuka kado
+            giftBox.classList.add('is-open');
+
+            // Setelah animasi kado membuka selesai, tampilkan konten hadiah
+            giftBox.addEventListener('animationend', (event) => {
+                // Pastikan hanya memicu setelah animasi utama gift-top selesai
+                if (event.animationName === 'openGiftTop' || event.animationName === 'fadeBow') {
+                    giftBox.style.display = 'none'; // Sembunyikan kotak hadiah
+                    giftContent.classList.remove('hidden'); // Tampilkan konten hadiah
+                    giftContent.classList.add('content-reveal'); // Pemicu animasi muncul
+                    
+                    // Sesuaikan pesan QR code di sini (jika perlu)
+                    // qrMessage.textContent = "PESAN KHUSUS UNTUKMU: [Tulis pesan di sini]!";
+                }
+            }, { once: true }); // Pastikan event listener hanya berjalan sekali
         });
+
+        function goBack() {
+            window.history.back();
+        }
+
+        // TIPS: Cara mengubah QR Code dan pesan:
+        // 1. Buat gambar QR code (PNG/JPG) dari text/link yang kamu inginkan.
+        //    SARAN: Jaga QR Code tetap bersih, tambahkan pixel border di CSS.
+        // 2. Ganti 'images/your_qrcode.png' dengan lokasi file QR code kamu.
+        // 3. Ubah teks di dalam <p id="qrMessage"> sesuai keinginanmu.
+        //    Contoh: "[INSTRUKSI]: HADIAH UTAMAMU ADALAH KESETIAAN!"
     </script>
 </body>
 </html>
