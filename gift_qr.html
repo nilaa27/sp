@@ -3,69 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BUKA KADO SPESIAL!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/gift.css">
+    <title>Kado Animasi Keren</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden; /* Mencegah scroll saat animasi */
+        }
+
+        .gift-container {
+            position: relative;
+            width: 250px; /* Ukuran kado */
+            height: 250px;
+            cursor: pointer;
+            perspective: 1000px; /* Untuk efek 3D */
+        }
+
+        .gift-box {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s ease-out, opacity 0.8s ease-out; /* Transisi untuk kotak */
+            transform-style: preserve-3d; /* Penting untuk 3D */
+        }
+
+        .gift-lid {
+            position: absolute;
+            width: 100%;
+            height: 50%; /* Setengah tinggi kotak */
+            background-color: #e74c3c; /* Warna tutup kado */
+            border-radius: 10px;
+            top: 0;
+            left: 0;
+            transform-origin: bottom center; /* Titik putar di bagian bawah tutup */
+            transition: transform 0.8s ease-out;
+            z-index: 2; /* Pastikan tutup di atas */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .gift-base {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #c0392b; /* Warna dasar kado */
+            border-radius: 10px;
+            bottom: 0;
+            left: 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .gift-ribbon-v {
+            position: absolute;
+            width: 30px;
+            height: 100%;
+            background-color: #f1c40f; /* Warna pita */
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+        }
+
+        .gift-ribbon-h {
+            position: absolute;
+            width: 100%;
+            height: 30px;
+            background-color: #f1c40f; /* Warna pita */
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 3;
+        }
+
+        .gift-content {
+            position: absolute;
+            width: 80%;
+            height: 80%;
+            background-color: #ecf0f1; /* Warna isi kado */
+            border-radius: 5px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.5); /* Awalnya kecil dan tersembunyi */
+            opacity: 0;
+            transition: transform 0.8s ease-out 0.4s, opacity 0.8s ease-out 0.4s; /* Delay muncul */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            color: #2c3e50;
+            text-align: center;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+            z-index: 1; /* Di bawah tutup */
+            padding: 10px;
+        }
+
+        /* Kelas untuk animasi saat kado terbuka */
+        .gift-container.open .gift-lid {
+            transform: rotateX(90deg) translateY(-100%); /* Tutup terangkat dan memutar */
+            opacity: 0; /* Tutup menghilang */
+            transform-origin: bottom center; /* Penting agar rotasi dari bawah */
+        }
+
+        .gift-container.open .gift-content {
+            transform: translate(-50%, -50%) scale(1); /* Isi membesar */
+            opacity: 1; /* Isi muncul */
+        }
+
+        /* Bonus: Efek pita menghilang */
+        .gift-container.open .gift-ribbon-v,
+        .gift-container.open .gift-ribbon-h {
+            opacity: 0;
+            transition: opacity 0.3s ease-out;
+        }
+
+    </style>
 </head>
 <body>
-    <div class="gift-wrapper">
-        <div class="gift-box" id="giftBox">
-            <div class="gift-top"></div>
-            <div class="gift-bow-h"></div>
-            <div class="gift-bow-v"></div>
-            <div class="open-button" id="openGiftButton">
-                <span>KLIK UNTUK MEMBUKA</span>
-                <span class="pixel-arrow"></span>
+    <div class="gift-container" id="myGift">
+        <div class="gift-box">
+            <div class="gift-lid">
+                <div class="gift-ribbon-v"></div>
+                <div class="gift-ribbon-h"></div>
             </div>
+            <div class="gift-base"></div>
         </div>
-
-        <div class="gift-content hidden" id="giftContent">
-            <h2>PESAN RAHASIA TERUNGKAP!</h2>
-            <img id="qrCodeImage" src="images/your_qrcode.png" alt="[DATA_HADIAH]">
-            <p id="qrMessage">
-                [INSTRUKSI]: PINDAI KODE INI UNTUK MENGAKSES PESAN TERENKRIPSI!
-            </p>
-            <button class="back-button" onclick="goBack()">KEMBALI KE TERMINAL</button>
+        <div class="gift-content">
+            <p>Selamat Ulang Tahun!</p>
+            <p>Sudah berapa lama kamu bertahan?</p>
+            <p>Sejak 2005-09-28</p>
         </div>
     </div>
 
     <script>
-        const giftBox = document.getElementById('giftBox');
-        const openGiftButton = document.getElementById('openGiftButton');
-        const giftContent = document.getElementById('giftContent');
-        const qrMessage = document.getElementById('qrMessage'); // Ambil elemen pesan QR
+        document.addEventListener('DOMContentLoaded', function() {
+            const giftContainer = document.getElementById('myGift');
 
-        openGiftButton.addEventListener('click', () => {
-            // Sembunyikan tombol buka
-            openGiftButton.style.display = 'none';
+            giftContainer.addEventListener('click', function() {
+                // Tambahkan kelas 'open' saat kado diklik
+                giftContainer.classList.add('open');
 
-            // Tambahkan kelas untuk animasi membuka kado
-            giftBox.classList.add('is-open');
-
-            // Setelah animasi kado membuka selesai, tampilkan konten hadiah
-            giftBox.addEventListener('animationend', (event) => {
-                // Pastikan hanya memicu setelah animasi utama gift-top selesai
-                if (event.animationName === 'openGiftTop' || event.animationName === 'fadeBow') {
-                    giftBox.style.display = 'none'; // Sembunyikan kotak hadiah
-                    giftContent.classList.remove('hidden'); // Tampilkan konten hadiah
-                    giftContent.classList.add('content-reveal'); // Pemicu animasi muncul
-                    
-                    // Sesuaikan pesan QR code di sini (jika perlu)
-                    // qrMessage.textContent = "PESAN KHUSUS UNTUKMU: [Tulis pesan di sini]!";
-                }
-            }, { once: true }); // Pastikan event listener hanya berjalan sekali
+                // Opsional: Hapus event listener setelah diklik agar tidak bisa diklik ulang
+                giftContainer.removeEventListener('click', arguments.callee);
+            });
         });
-
-        function goBack() {
-            window.history.back();
-        }
-
-        // TIPS: Cara mengubah QR Code dan pesan:
-        // 1. Buat gambar QR code (PNG/JPG) dari text/link yang kamu inginkan.
-        //    SARAN: Jaga QR Code tetap bersih, tambahkan pixel border di CSS.
-        // 2. Ganti 'images/your_qrcode.png' dengan lokasi file QR code kamu.
-        // 3. Ubah teks di dalam <p id="qrMessage"> sesuai keinginanmu.
-        //    Contoh: "[INSTRUKSI]: HADIAH UTAMAMU ADALAH KESETIAAN!"
     </script>
 </body>
 </html>
