@@ -10,25 +10,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Toggle Password Visibility ---
     if (togglePassword && passwordInput) {
         togglePassword.addEventListener('click', () => {
-            // Dapatkan tipe saat ini
-            const currentType = passwordInput.getAttribute('type');
-            const newType = currentType === 'password' ? 'text' : 'password';
-
-            // Pemicu animasi keluar
-            togglePassword.classList.add('text-exit');
-            togglePassword.classList.remove('text-enter');
-
-            // Setelah animasi keluar selesai, ubah teks dan picu animasi masuk
-            togglePassword.addEventListener('animationend', () => {
-                passwordInput.setAttribute('type', newType);
-                if (newType === 'text') {
-                    togglePassword.textContent = 'Hide';
-                } else {
-                    togglePassword.textContent = 'Show';
-                }
-                togglePassword.classList.remove('text-exit');
-                togglePassword.classList.add('text-enter');
-            }, { once: true }); // Pastikan event listener hanya berjalan sekali
+            // Toggle the type attribute
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            // Toggle the eye icon classes
+            togglePassword.classList.toggle('fa-eye');
+            togglePassword.classList.toggle('fa-eye-slash');
         });
     }
 
@@ -55,20 +43,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const username = usernameInput.value.trim();
         const password = passwordInput.value.trim();
 
-        if (username === 'admin' && password === '123') {
+        if (username === 'mayfa' && password === 'cantik') {
             window.location.href = 'spotify_surprise.html';
         } else {
             messageElement.textContent = 'Username atau password salah. Mohon coba lagi!';
             passwordInput.value = '';
             
-            // Reset teks toggle ke "Show" dan picu animasi
-            togglePassword.classList.add('text-exit');
-            togglePassword.classList.remove('text-enter');
-            togglePassword.addEventListener('animationend', () => {
-                togglePassword.textContent = 'Show';
-                togglePassword.classList.remove('text-exit');
-                togglePassword.classList.add('text-enter');
-            }, { once: true });
+            // Reset ikon mata ke fa-eye (jika sebelumnya fa-eye-slash)
+            togglePassword.classList.remove('fa-eye-slash');
+            togglePassword.classList.add('fa-eye');
 
             messageElement.style.animation = 'none';
             void messageElement.offsetWidth;
