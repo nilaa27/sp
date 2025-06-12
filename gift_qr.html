@@ -11,7 +11,13 @@
     <div class="gift-wrapper">
         <div class="gift-box" id="giftBox">
             <div class="gift-lid"></div>
+            <div class="gift-shard shard-1"></div>
+            <div class="gift-shard shard-2"></div>
+            <div class="gift-shard shard-3"></div>
+            <div class="gift-shard shard-4"></div>
+            
             <div class="gift-body"></div>
+            
             <div class="gift-bow-h"></div>
             <div class="gift-bow-v"></div>
             
@@ -35,45 +41,41 @@
         const giftBox = document.getElementById('giftBox');
         const openGiftButton = document.getElementById('openGiftButton');
         const giftContent = document.getElementById('giftContent');
-        const qrCodeImage = document.getElementById('qrCodeImage'); // Mengambil elemen gambar QR
 
         openGiftButton.addEventListener('click', () => {
             // Sembunyikan tombol buka
             openGiftButton.style.display = 'none';
 
-            // Tambahkan kelas untuk animasi membuka kado
-            giftBox.classList.add('is-open');
+            // Tambahkan kelas untuk memicu animasi ledakan kado
+            giftBox.classList.add('is-exploding');
 
-            // Kita akan menunggu animasi tutup dan pita selesai
-            // Tambahkan timeout yang sesuai dengan durasi transisi terpanjang
-            // Durasi transisi gift-lid adalah 1s, transition-delay pita adalah 0.1s
-            // Jadi total sekitar 1.1 - 1.2 detik
-            const totalAnimationDuration = 1100; // Durasi total animasi opening dalam milidetik (misal: 1100ms = 1.1 detik)
+            // Setelah animasi ledakan selesai, tampilkan konten
+            // Kita akan menunggu animasi shard terakhir selesai
+            const lastShard = document.querySelector('.gift-shard.shard-4');
 
-            setTimeout(() => {
-                giftBox.style.display = 'none'; // Sembunyikan kotak hadiah
-                giftContent.classList.remove('hidden'); // Tampilkan konten hadiah
-                giftContent.classList.add('content-reveal'); // Pemicu animasi muncul
-
-                // Penting: Pastikan path QR code benar di sini juga jika diperlukan
-                // qrCodeImage.src = 'images/nama_qr_code_kamu.png'; 
-                // qrCodeImage.alt = 'QR Code Hadiah Spesial';
-            }, totalAnimationDuration); // Timeout setelah animasi selesai
-
-            // Opsional: Hapus event listener setelah diklik agar tidak bisa diklik ulang
-            openGiftButton.removeEventListener('click', arguments.callee);
+            // Pastikan event listener hanya aktif sekali
+            lastShard.addEventListener('animationend', (event) => {
+                if (event.animationName === 'shardExplode') {
+                    // Sembunyikan kotak hadiah sepenuhnya setelah ledakan
+                    giftBox.style.display = 'none'; 
+                    giftContent.classList.remove('hidden'); // Tampilkan konten hadiah
+                    giftContent.classList.add('content-reveal'); // Pemicu animasi muncul
+                }
+            }, { once: true }); 
         });
 
         function goBack() {
             window.history.back();
         }
 
-        // CATATAN PENTING:
-        // Untuk QR Code, pastikan kamu sudah:
-        // 1. Membuat folder 'images' di samping 'index.html' dan 'css'.
-        // 2. Meletakkan file gambar QR Code (misal: 'my_qr.png') di dalam folder 'images'.
-        // 3. Mengubah 'src="images/your_qrcode.png"' di tag <img> di atas agar SESUAI
-        //    dengan nama file dan ekstensi gambar QR code kamu.
+        // TIPS PENTING: Cara mengubah QR Code dan pesan:
+        // 1. Buat gambar QR code (PNG/JPG) dari text/link yang kamu inginkan.
+        //    SARAN: Jaga QR Code tetap bersih untuk scan yang mudah.
+        // 2. Buat folder bernama 'images' di lokasi yang sama dengan 'index.html'.
+        // 3. Masukkan gambar QR code kamu ke dalam folder 'images' tersebut.
+        // 4. Ganti 'images/your_qrcode.png' pada tag <img> di HTML ini dengan lokasi dan nama file QR code kamu yang sebenarnya.
+        // 5. Ubah teks di dalam <p id="qrMessage"> sesuai keinginanmu.
+        //    Contoh: "[INSTRUKSI]: HADIAH UTAMAMU ADALAH KESETIAAN!"
     </script>
 </body>
 </html>
