@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kejutan Spesial!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>KEJUTAN PENTING!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/456.css">
 </head>
 <body>
@@ -13,61 +12,60 @@
         <div class="header-section">
             <div class="profile-area">
                 <div class="profile-pic-wrapper">
-                    <img id="birthdayPersonPic" src="https://i.postimg.cc/CxSHKRT1/IMG-0965.jpg" alt="Foto Orang Spesial" class="profile-pic">
+                    <img id="birthdayPersonPic" src="images/your_photo.jpg" alt="[TARGET_PHOTO]" class="profile-pic">
                 </div>
                 <div class="chat-bubble">
-                    Sudah berapa lama kamu bertahan? <i class=""></i>
+                    [PROMPT]: SUDah berapa lama kamu bertahan?
                 </div>
             </div>
         </div>
 
         <div class="countdown-section">
-            <h1 id="ageDisplay" class="age-text">0 Years 0 Months</h1>
+            <h1 id="ageDisplay" class="age-text">00 TAHUN 00 BULAN</h1>
             <div class="countdown-timer">
                 <div class="time-box">
                     <span id="days" class="time-value">00</span>
-                    <span class="time-label">Days</span>
+                    <span class="time-label">HARI</span>
                 </div>
                 <span class="colon">:</span>
                 <div class="time-box">
                     <span id="hours" class="time-value">00</span>
-                    <span class="time-label">Hrs</span>
+                    <span class="time-label">JAM</span>
                 </div>
                 <span class="colon">:</span>
                 <div class="time-box">
                     <span id="minutes" class="time-value">00</span>
-                    <span class="time-label">Mins</span>
+                    <span class="time-label">MENIT</span>
                 </div>
                 <span class="colon">:</span>
                 <div class="time-box">
                     <span id="seconds" class="time-value">00</span>
-                    <span class="time-label">Secs</span>
+                    <span class="time-label">DETIK</span>
                 </div>
             </div>
             
             <button class="gift-button" onclick="showGift()">
-                <i class="fa-solid fa-gift"></i> Claim Giftmu
+                [HADIAH] AKSES_FILE_RAHASIA
             </button>
 
             <div class="footer-icons">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-paw"></i>
-                <i class="fa-solid fa-paw"></i>
-                <i class="fa-solid fa-star"></i>
+                <span><*></span>
+                <span><*></span>
+                <span><*></span>
+                <span><*></span>
             </div>
             
-            <p class="made-with-love">Web By Xlord</p>
+            <p class="made-with-love">MADE_BY_SYSTEM</p>
         </div>
     </div>
 
     <script>
-        // Tanggal lahir orang yang berulang tahun (Diperbarui sesuai permintaan: 2005-09-28)
+        // Tanggal lahir orang yang berulang tahun: 28 September 2005
         // Format: YYYY-MM-DD
-        const birthDateStr = "2005-09-28"; 
+        const birthDateStr = "2005-09-28";
         const birthDate = new Date(birthDateStr);
 
         // Tanggal tujuan untuk countdown (ulang tahun berikutnya)
-        // Akan dihitung otomatis dari tanggal lahir.
         let nextBirthday = new Date(new Date().getFullYear(), birthDate.getMonth(), birthDate.getDate());
 
         // Jika ulang tahun berikutnya sudah lewat di tahun ini, set ke tahun depan
@@ -84,7 +82,6 @@
 
             if (daysInMonth < 0) {
                 months--;
-                // Hitung hari di bulan sebelumnya
                 const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
                 daysInMonth = prevMonth.getDate() + daysInMonth; 
             }
@@ -95,7 +92,7 @@
             }
 
             document.getElementById('ageDisplay').textContent = 
-                `${years} Years ${months} Months`;
+                `${String(years).padStart(2, '0')} TAHUN ${String(months).padStart(2, '0')} BULAN`;
         }
 
         // --- Fungsi untuk memperbarui countdown ---
@@ -104,14 +101,12 @@
             const distance = nextBirthday.getTime() - now;
 
             if (distance < 0) {
-                // Jika countdown sudah lewat (ulang tahun sudah tiba)
                 document.getElementById("days").textContent = "00";
                 document.getElementById("hours").textContent = "00";
                 document.getElementById("minutes").textContent = "00";
                 document.getElementById("seconds").textContent = "00";
-                document.getElementById("ageDisplay").textContent = "Selamat Ulang Tahun!"; // Pesan saat sudah ultah
+                document.getElementById("ageDisplay").textContent = "SELAMAT ULANG TAHUN!";
                 
-                // Set next birthday to next year immediately for continuous countdown
                 nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
                 return;
             }
@@ -126,13 +121,10 @@
             document.getElementById("minutes").textContent = String(minutes).padStart(2, '0');
             document.getElementById("seconds").textContent = String(seconds).padStart(2, '0');
 
-            updateAgeDisplay(); // Perbarui juga tampilan umur setiap detik
+            updateAgeDisplay();
         }
 
-        // Panggil fungsi sekali saat dimuat untuk menghindari delay awal
         updateCountdown();
-
-        // Perbarui countdown setiap 1 detik
         setInterval(updateCountdown, 1000);
 
         function showGift() {
