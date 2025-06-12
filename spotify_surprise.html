@@ -5,144 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Surprise Ulang Tahun Spesial!</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(to bottom right, #1DB954, #0a5a2a); /* Gradasi hijau Spotify */
-            margin: 0;
-            color: white;
-            text-align: center;
-            overflow: hidden; /* Mencegah scroll saat animasi */
-            animation: gradientShift 15s ease infinite alternate; /* Animasi gradasi background */
-        }
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
-        }
-        .spotify-card {
-            background-color: rgba(18, 18, 18, 0.85); /* Background gelap transparan ala Spotify */
-            padding: 50px;
-            border-radius: 25px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
-            max-width: 550px;
-            width: 90%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 30px;
-            backdrop-filter: blur(8px); /* Efek blur pada background di belakang card */
-            transform: scale(0.8);
-            opacity: 0;
-            animation: cardPopIn 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; /* Animasi pop in yang bouncy */
-        }
-        @keyframes cardPopIn {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-        .profile-pic-wrapper {
-            position: relative;
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 5px solid #1DB954; /* Border hijau Spotify */
-            box-shadow: 0 0 20px rgba(29, 185, 84, 0.5);
-            animation: spin 8s linear infinite; /* Putaran ringan */
-        }
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        .profile-pic {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-        .profile-pic:hover {
-            transform: scale(1.05); /* Membesar sedikit saat hover */
-        }
-        h1 {
-            font-family: 'Montserrat', sans-serif; /* Judul lebih tebal dan mencolok */
-            font-size: 3em;
-            margin-bottom: 10px;
-            font-weight: 700;
-            color: #1DB954;
-            letter-spacing: -1px;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            animation: textFadeInUp 1s ease-out forwards 0.8s;
-        }
-        @keyframes textFadeInUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        p {
-            font-size: 1.15em;
-            line-height: 1.7;
-            color: #e0e0e0;
-            margin-bottom: 20px;
-            opacity: 0;
-            animation: fadeIn 1s ease-in-out forwards 1.2s;
-        }
-        audio {
-            width: 90%;
-            margin-top: 20px;
-            filter: invert(0.9) saturate(1.2); /* Membuat kontrol audio lebih terang di background gelap */
-            opacity: 0;
-            animation: slideInUp 1s ease-out forwards 1.5s;
-        }
-        @keyframes slideInUp {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        .gift-button {
-            background-color: #FFC107; /* Kuning cerah untuk hadiah */
-            color: #333;
-            padding: 18px 40px;
-            border: none;
-            border-radius: 35px; /* Lebih membulat */
-            cursor: pointer;
-            font-size: 1.4em;
-            font-weight: 700;
-            margin-top: 35px;
-            transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
-            animation: bounceIn 1s ease-out forwards 2s; /* Muncul memantul */
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            letter-spacing: 0.5px;
-        }
-        .gift-button:hover {
-            background-color: #e0a800;
-            transform: scale(1.03);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-        }
-        @keyframes bounceIn {
-            0% { transform: scale(0.3); opacity: 0; }
-            50% { transform: scale(1.1); opacity: 1; }
-            80% { transform: scale(0.95); }
-            100% { transform: scale(1); }
-        }
-
-        /* Generic fade in for other elements */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-    </style>
+    <link rel="stylesheet" href="css/spotify.css">
 </head>
 <body>
     <div class="spotify-card">
         <div class="profile-pic-wrapper">
             <img id="birthdayPersonPic" src="images/your_photo.jpg" alt="Foto Orang Ulang Tahun" class="profile-pic">
         </div>
-        <h1>Selamat Ulang Tahun, [Nama Orang Ulang Tahun]!</h1>
-        <p>Semoga hari ini penuh kebahagiaan, tawa, dan semua keinginanmu tercapai. Kamu adalah pribadi yang luar biasa dan spesial!</p>
-        <p>Ini playlist khusus untukmu di hari istimewa ini, semoga suka ya:</p>
-        <audio controls autoplay loop>
+        <h1 class="title-animation">Selamat Ulang Tahun, [Nama Orang Ulang Tahun]!</h1>
+        <p class="fade-in-text">Semoga hari ini penuh kebahagiaan, tawa, dan semua keinginanmu tercapai. Kamu adalah pribadi yang luar biasa dan spesial!</p>
+        <p class="fade-in-text">Ini playlist khusus untukmu di hari istimewa ini, semoga suka ya:</p>
+        <audio controls autoplay loop class="audio-player-animation">
             <source src="music/your_song.mp3" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
@@ -153,12 +26,9 @@
         function showGift() {
             window.location.href = 'gift_qr.html';
         }
-
         // TIPS: Cara mengganti foto dan musik:
         // 1. Ganti 'images/your_photo.jpg' dengan path foto yang kamu inginkan.
-        //    Contoh: 'images/orang_ultah.jpg' (pastikan folder images ada dan fotonya di sana)
         // 2. Ganti 'music/your_song.mp3' dengan path lagu yang kamu inginkan.
-        //    Contoh: 'music/lagu_favorit.mp3' (pastikan folder music ada dan lagunya di sana)
         // 3. Ganti "[Nama Orang Ulang Tahun]" dengan nama yang berulang tahun.
     </script>
 </body>
