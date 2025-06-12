@@ -93,9 +93,9 @@ h2 {
 
 .toggle-password {
     position: absolute;
-    right: 18px; /* Sesuaikan posisi horizontal ikon */
-    top: calc(50% + 5px); /* Menyesuaikan top agar ikon di tengah input field */
-    transform: translateY(-50%); /* Penyesuaian agar ikon di tengah vertikal */
+    right: 15px; /* Sedikit geser ke kiri dari sebelumnya 18px */
+    top: 50%; /* Posisikan di tengah vertikal */
+    transform: translateY(-50%); /* Geser ke atas setengah tinggi ikon */
     cursor: pointer;
     color: #888;
     transition: color 0.3s ease;
@@ -156,10 +156,10 @@ button:hover {
     }
     .input-group input {
         padding: 12px 15px;
-        padding-right: 45px;
+        padding-right: 45px; /* Sesuaikan lagi untuk mobile */
     }
     .toggle-password {
-        right: 12px;
+        right: 12px; /* Sesuaikan lagi untuk mobile */
     }
     button {
         padding: 12px 25px;
