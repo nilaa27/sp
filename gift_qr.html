@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hadiah Spesial Untukmu!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #fce4ec; /* Background lembut */
+            margin: 0;
+            color: #333;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .gift-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            max-width: 600px;
+            width: 90%;
+            animation: slideInDown 0.8s ease-out; /* Animasi slide in dari atas */
+        }
+        @keyframes slideInDown {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        h2 {
+            color: #d81b60; /* Warna pink cerah */
+            margin-bottom: 25px;
+            font-size: 2.5em;
+            animation: heartBeat 1.5s infinite; /* Animasi detak jantung */
+        }
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            14% { transform: scale(1.1); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.05); }
+            70% { transform: scale(1); }
+        }
+        #qrCodeImage {
+            width: 250px; /* Ukuran QR code */
+            height: 250px;
+            border: 5px solid #d81b60;
+            border-radius: 10px;
+            margin: 25px auto;
+            display: block; /* Agar bisa di-margin auto */
+            animation: pulse 2s infinite alternate; /* Animasi berdenyut */
+        }
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.03); }
+        }
+        #qrMessage {
+            font-size: 1.3em;
+            color: #555;
+            line-height: 1.6;
+            margin-top: 20px;
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out forwards 0.5s; /* Fade in dengan delay */
+        }
+        .back-button {
+            background-color: #d81b60;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 30px;
+            transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+            animation: slideInUp 0.7s ease-out; /* Animasi slide in dari bawah */
+        }
+        @keyframes slideInUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .back-button:hover {
+            background-color: #ad1457;
+            transform: translateY(-2px); /* Efek sedikit naik saat hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="gift-container">
+        <h2>Ini Hadiah Spesial Dariku!</h2>
+        <img id="qrCodeImage" src="images/your_qrcode.png" alt="QR Code Hadiah">
+        <p id="qrMessage">
+            Scan QR code ini untuk melihat pesan rahasia yang sudah kusiapkan untukmu!
+        </p>
+        <button class="back-button" onclick="goBack()">Kembali ke Halaman Kejutan</button>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back(); // Kembali ke halaman sebelumnya
+        }
+
+        // TIPS: Cara mengubah QR Code dan pesan:
+        // 1. Buat gambar QR code (PNG/JPG) dari text/link yang kamu inginkan.
+        //    Ada banyak online QR code generator, contoh: https://www.qrcode-monkey.com/
+        //    Isi dengan kata-kata kejutan, link video, atau apapun!
+        // 2. Ganti 'images/your_qrcode.png' dengan lokasi file QR code kamu.
+        // 3. Ubah teks di dalam <p id="qrMessage"> sesuai keinginanmu.
+        //    Contoh: "QR code ini berisi kenangan terindah kita..."
+    </script>
+</body>
+</html>
