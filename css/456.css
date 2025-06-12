@@ -4,7 +4,7 @@ body {
     font-family: 'VT323', monospace;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: flex-start; /* Mengatur konten ke atas jika ada scroll */
     min-height: 100vh;
     background-color: #1a1a2e; /* Dark, retro background */
     margin: 0;
@@ -51,7 +51,7 @@ body {
 .header-section {
     display: flex;
     justify-content: flex-start;
-    align-items: center;
+    align-items: center; /* Memastikan elemen sejajar di tengah secara vertikal */
     margin-bottom: 40px;
     padding-bottom: 20px;
     border-bottom: 2px dotted #4e4e6a; /* Pixel dotted border */
@@ -60,14 +60,14 @@ body {
 
 .profile-area {
     display: flex;
-    align-items: center;
+    align-items: center; /* Memastikan gambar dan bubble sejajar */
     gap: 15px;
 }
 
 .profile-pic-wrapper {
     width: 80px;
     height: 80px;
-    border-radius: 0; /* No border-radius */
+    border-radius: 0;
     overflow: hidden;
     border: 3px solid #00ff00; /* Green pixel border */
     box-shadow: 0 0 0 2px #00ff00; /* Outer pixel glow */
@@ -82,9 +82,9 @@ body {
 .profile-pic {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Still cover, but user should pixelate image */
-    image-rendering: pixelated; /* PENTING: Untuk memastikan gambar tetap pixelated */
-    filter: brightness(1.2); /* Sedikit cerah */
+    object-fit: cover;
+    image-rendering: pixelated; /* Penting untuk gambar pixel */
+    filter: brightness(1.2);
 }
 
 .chat-bubble {
@@ -99,17 +99,18 @@ body {
     box-shadow: 4px 4px 0 #000;
     animation: bubblePopPixel 0.5s steps(5) forwards 0.6s;
     text-shadow: 1px 1px 0 #000;
+    line-height: 1.2; /* Menjaga teks tidak terlalu rapat */
 }
 .chat-bubble::after { /* Pointer for bubble */
     content: '';
     position: absolute;
-    left: -8px;
-    top: 50%;
-    transform: translateY(-50%);
+    left: -10px; /* Sesuaikan agar lebih menempel ke gambar */
+    top: 50%; /* Tengah vertikal */
+    transform: translateY(-50%); /* Geser ke atas setengah tingginya */
     width: 0; height: 0;
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
-    border-right: 8px solid #5d5d81;
+    border-right: 10px solid #5d5d81; /* Ukuran dan warna sesuai bubble */
 }
 
 @keyframes bubblePopPixel {
@@ -132,7 +133,7 @@ body {
     text-shadow: 2px 2px 0 #000;
     animation: textScanline 1s steps(1) infinite alternate;
 }
-@keyframes textScanline { /* Simulate CRT scanline */
+@keyframes textScanline {
     0% { filter: brightness(1.2); }
     100% { filter: brightness(0.8); }
 }
@@ -141,8 +142,8 @@ body {
 .countdown-timer {
     display: flex;
     justify-content: center;
-    align-items: baseline;
-    gap: 10px;
+    align-items: center; /* UBAH: Untuk menengahkan angka dan kolon secara vertikal */
+    gap: 10px; /* Kurangi gap untuk lebih kompak */
     margin-bottom: 40px;
     font-family: 'VT323', monospace;
     color: #00ff00;
@@ -163,7 +164,7 @@ body {
 .time-value {
     font-size: 2.5em;
     font-weight: normal;
-    line-height: 1;
+    line-height: 1; /* Penting untuk presisi vertikal angka */
     color: #ff00ff; /* Magenta for values */
     text-shadow: 1px 1px 0 #000;
 }
@@ -172,17 +173,18 @@ body {
     font-size: 0.7em;
     font-weight: normal;
     color: #a0a0a0;
-    margin-top: 5px;
+    margin-top: 5px; /* Sedikit jarak dari angka */
     text-transform: uppercase;
     text-shadow: 1px 1px 0 #000;
 }
 
 .colon {
-    font-size: 2.5em;
+    font-size: 2.5em; /* Ukuran kolon sesuai angka */
     font-weight: normal;
     color: #ff00ff;
     margin: 0 5px;
     text-shadow: 1px 1px 0 #000;
+    line-height: 1; /* Pastikan line-height konsisten dengan time-value */
 }
 
 /* --- Gift Button --- */
@@ -260,8 +262,20 @@ body {
         padding: 8px 15px;
         font-size: 0.9em;
     }
+    .chat-bubble::after { /* Sesuaikan pointer di mobile juga */
+        left: -8px;
+        border-right: 8px solid #5d5d81;
+    }
     .age-text {
         font-size: 1.8em;
+    }
+    .countdown-timer {
+        flex-wrap: wrap; /* Izinkan wrap pada baris baru */
+        gap: 5px; /* Kurangi gap */
+        justify-content: center;
+    }
+    .time-box {
+        padding: 6px 10px; /* Kurangi padding di mobile */
     }
     .time-value {
         font-size: 2em;
