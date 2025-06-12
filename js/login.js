@@ -6,17 +6,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginButton = document.getElementById('loginButton');
     const usernameInput = document.getElementById('username');
     const messageElement = document.getElementById('loginMessage');
+    const loginContainer = document.querySelector('.login-container'); // Ambil container
+
+    // Tambahkan class 'loaded' setelah animasi slideInPixel selesai
+    loginContainer.addEventListener('animationend', (event) => {
+        if (event.animationName === 'slideInPixel') {
+            loginContainer.classList.add('loaded');
+        }
+    }, { once: true });
+
 
     // --- Toggle Password Visibility ---
     if (togglePassword && passwordInput) {
         togglePassword.addEventListener('click', () => {
-            // Toggle the type attribute
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            
-            // Toggle the eye icon classes
-            togglePassword.classList.toggle('fa-eye');
-            togglePassword.classList.toggle('fa-eye-slash');
+            const currentType = passwordInput.getAttribute('type');
+            const newType = currentType === 'password' ? 'text' : 'password';
+
+            togglePassword.classList.add('text-exit');
+            togglePassword.classList.remove('text-enter');
+
+            // Gunakan setTimeout sebagai pengganti animationend untuk transisi yang lebih cepat
+            // Karena steps() animationend mungkin tidak selalu stabil untuk transisi sangat cepat.
+            setTimeout(() => {
+                passwordInput.setAttribute('type', newType);
+                togglePassword.textContent = newType === 'text' ? 'HIDE' : 'SHOW';
+                togglePassword.classList.remove('text-exit');
+                togglePassword.classList.add('text-enter');
+            }, 100); // Durasi setTimeout harus kurang dari atau sama dengan durasi animasi CSS (0.2s)
         });
     }
 
@@ -26,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
             performLogin();
         });
 
-        // Allow login on 'Enter' key press
         usernameInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 performLogin();
@@ -43,19 +58,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const username = usernameInput.value.trim();
         const password = passwordInput.value.trim();
 
-        if (username === 'mayfa' && password === 'cantik') {
+        if (username === 'admin' && password === '123') {
             window.location.href = 'spotify_surprise.html';
         } else {
-            messageElement.textContent = 'Username atau password salah. Mohon coba lagi!';
+            messageElement.textContent = 'ERROR: DATA TIDAK VALID.';
             passwordInput.value = '';
             
-            // Reset ikon mata ke fa-eye (jika sebelumnya fa-eye-slash)
-            togglePassword.classList.remove('fa-eye-slash');
-            togglePassword.classList.add('fa-eye');
+            // Reset toggle text ke "SHOW"
+            togglePassword.classList.add('text-exit');
+            togglePassword.classList.remove('text-enter');
+            setTimeout(() => {
+                togglePassword.textContent = 'SHOW';
+                togglePassword.classList.remove('text-exit');
+                togglePassword.classList.add('text-enter');
+            }, 100);
 
             messageElement.style.animation = 'none';
             void messageElement.offsetWidth;
-            messageElement.style.animation = 'shake 0.5s ease-in-out';
+            messageElement.style.animation = 'shakePixel 0.3s steps(3)';
         }
     }
 });
