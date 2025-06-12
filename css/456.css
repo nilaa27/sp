@@ -3,15 +3,17 @@
 body {
     font-family: 'Poppins', sans-serif;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    /* justify-content: center; */ /* Hapus atau jadikan komentar */
+    /* align-items: center; */    /* Hapus atau jadikan komentar */
+    min-height: 100vh; /* Pertahankan ini agar setidaknya setinggi viewport */
     background: linear-gradient(to bottom right, #1DB954, #0a5a2a); /* Gradasi hijau Spotify */
     margin: 0;
     color: white;
     text-align: center;
-    overflow: hidden;
+    /* overflow: hidden; */ /* HAPUS BARIS INI! */
     animation: gradientShift 15s ease infinite alternate;
+    flex-direction: column; /* Tambahkan ini agar konten menumpuk vertikal */
+    padding: 30px 0; /* Tambahkan sedikit padding di atas dan bawah untuk estetika */
 }
 
 @keyframes gradientShift {
@@ -35,6 +37,7 @@ body {
     opacity: 0;
     animation: cardPopIn 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     box-sizing: border-box;
+    margin: auto; /* Tambahkan margin auto untuk memposisikan card di tengah jika body flex-direction: column */
 }
 
 @keyframes cardPopIn {
