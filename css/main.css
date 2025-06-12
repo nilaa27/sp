@@ -94,16 +94,41 @@ h2 {
 .toggle-password {
     position: absolute;
     right: 15px;
-    top: 50%; /* Posisikan di tengah vertikal */
-    transform: translateY(-50%); /* Geser ke atas setengah tinggi elemen */
+    top: 50%;
+    transform: translateY(-40%); /* Penyesuaian agar teks ke bawah */
     cursor: pointer;
     color: #888;
-    transition: color 0.3s ease;
-    font-size: 0.9em; /* Ukuran font untuk teks "Show" */
-    font-weight: 600; /* Tebal sedikit */
+    font-size: 0.9em;
+    font-weight: 600;
     letter-spacing: 0.5px;
-    text-transform: uppercase; /* Agar terlihat lebih rapi */
+    text-transform: uppercase;
+    
+    /* --- ANIMASI PERPINDAHAN SHOW/HIDE --- */
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out; /* Transisi halus */
+    animation: none; /* Pastikan tidak ada animasi lain yang mengganggu */
 }
+
+/* Animasi saat teks muncul */
+.toggle-password.text-enter {
+    animation: textFadeIn 0.2s forwards;
+}
+
+/* Animasi saat teks keluar */
+.toggle-password.text-exit {
+    animation: textFadeOut 0.2s forwards;
+}
+
+@keyframes textFadeIn {
+    from { opacity: 0; transform: translateY(-30%); } /* Mulai sedikit di atas dan transparan */
+    to { opacity: 1; transform: translateY(-40%); } /* Berakhir di posisi normal */
+}
+
+@keyframes textFadeOut {
+    from { opacity: 1; transform: translateY(-40%); }
+    to { opacity: 0; transform: translateY(-50%); } /* Geser sedikit ke atas dan transparan saat keluar */
+}
+/* --- AKHIR ANIMASI PERPINDAHAN SHOW/HIDE --- */
+
 
 .toggle-password:hover {
     color: #333;
@@ -163,6 +188,8 @@ button:hover {
     .toggle-password {
         right: 10px; /* Sesuaikan lagi untuk mobile */
         font-size: 0.8em;
+        top: 50%;
+        transform: translateY(-40%); /* Pastikan konsisten */
     }
     button {
         padding: 12px 25px;
