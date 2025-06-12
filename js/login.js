@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const username = usernameInput.value.trim();
         const password = passwordInput.value.trim();
 
-        if (username === 'admin' && password === '123') {
+        if (username === 'mayfa' && password === '123') {
             window.location.href = 'spotify_surprise.html';
         } else {
             messageElement.textContent = 'ERROR: DATA TIDAK VALID.';
