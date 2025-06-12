@@ -95,7 +95,7 @@ h2 {
     position: absolute;
     right: -25px;
     top: 30%;
-    transform: translateY(-40%); /* Penyesuaian agar teks ke bawah */
+    transform: translateY(-90%); /* Penyesuaian agar teks ke bawah */
     cursor: pointer;
     color: #888;
     font-size: 0.9em;
