@@ -46,7 +46,7 @@
             </div>
             
             <button class="gift-button" onclick="showGift()">
-                <i class="fa-solid fa-lock"></i> Yen & Game
+                <i class="fa-solid fa-lock"></i> Claim Giftmu
             </button>
 
             <div class="footer-icons">
@@ -56,7 +56,7 @@
                 <i class="fa-solid fa-heart"></i>
             </div>
             
-            <p class="made-with-love">Made with love</p>
+            <p class="made-with-love">Web By Xlord</p>
         </div>
     </div>
 
@@ -75,7 +75,7 @@
             nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
         }
 
-        // --- Fungsi untuk memperbarui tampilan umur ---
+        // --- Fungsi untuk memperbarui tampilan umur (X Years Y Months) ---
         function updateAgeDisplay() {
             const now = new Date();
             let years = now.getFullYear() - birthDate.getFullYear();
@@ -86,7 +86,7 @@
                 months--;
                 // Hitung hari di bulan sebelumnya
                 const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
-                daysInMonth = prevMonth.getDate() + daysInMonth; // daysInMonth masih negatif
+                daysInMonth = prevMonth.getDate() + daysInMonth; 
             }
 
             if (months < 0) {
@@ -94,7 +94,6 @@
                 months += 12;
             }
 
-            // Memperbarui tampilan umur
             document.getElementById('ageDisplay').textContent = 
                 `${years} Years ${months} Months`;
         }
@@ -110,7 +109,7 @@
                 document.getElementById("hours").textContent = "00";
                 document.getElementById("minutes").textContent = "00";
                 document.getElementById("seconds").textContent = "00";
-                document.getElementById("ageDisplay").textContent = "Selamat Ulang Tahun!";
+                document.getElementById("ageDisplay").textContent = "Selamat Ulang Tahun!"; // Pesan saat sudah ultah
                 
                 // Set next birthday to next year immediately for continuous countdown
                 nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
