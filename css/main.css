@@ -1,181 +1,217 @@
 /* css/main.css */
 
-/* --- Base Styles & Animations --- */
+/* --- Pixel Base Styles --- */
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'VT323', monospace; /* Font terminal pixel untuk body */
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(135deg, #e0f2f7 0%, #c1e7f0 100%); /* Gradasi biru muda yang lembut */
+    background-color: #1a1a2e; /* Dark, retro background */
     margin: 0;
-    color: #333;
-    animation: fadeIn 1.2s ease-in-out;
-    overflow-x: hidden; /* Mencegah scroll horizontal */
+    color: #e0e0e0; /* Light gray text */
+    animation: fadeInPixel 1s steps(12, end); /* Pixelated fade in */
+    overflow-x: hidden;
 }
 
-@keyframes fadeIn {
+@keyframes fadeInPixel {
     from { opacity: 0; }
     to { opacity: 1; }
 }
 
 /* --- Login Page Styles --- */
 .login-container {
-    background-color: #ffffff;
-    padding: 50px 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    background-color: #2e2e4e; /* Slightly lighter dark background */
+    padding: 40px;
+    border-radius: 0; /* No border-radius for pixel feel */
+    border: 2px solid #5d5d81; /* Pixel border */
+    box-shadow: 6px 6px 0 #000; /* Sharp pixel shadow */
     text-align: center;
-    max-width: 400px;
+    max-width: 450px;
     width: 90%;
-    animation: slideInUp 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    box-sizing: border-box; /* Pastikan padding tidak menambah lebar */
+    animation: slideInPixel 0.8s steps(10, end); /* Pixelated slide in */
+    box-sizing: border-box;
+    position: relative; /* For glow effect */
+}
+.login-container::after {
+    content: '';
+    position: absolute;
+    top: -2px; left: -2px; right: -2px; bottom: -2px;
+    border: 2px dashed #4e4e6a; /* Inner dashed border */
+    pointer-events: none;
 }
 
-@keyframes slideInUp {
-    from { transform: translateY(50px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+@keyframes slideInPixel {
+    from { transform: translateY(50px) scale(0.9); opacity: 0; }
+    to { transform: translateY(0) scale(1); opacity: 1; }
 }
 
 h2 {
-    font-size: 2.2em;
-    color: #2c3e50;
-    margin-bottom: 35px;
-    font-weight: 600;
-    animation: bounceIn 0.8s ease-out;
+    font-family: 'Press Start 2P', cursive; /* Ikonik font pixel untuk judul */
+    font-size: 1.6em;
+    color: #00ff00; /* Bright green for command line feel */
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 0 #000;
+    animation: textAppear 0.5s steps(1) infinite alternate; /* Blinking cursor effect */
 }
+@keyframes textAppear {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+/* Stop blinking after initial animation */
+.login-container.loaded h2 {
+    animation: none;
+}
+/* JavaScript needs to add 'loaded' class after animation */
 
-@keyframes bounceIn {
-    0% { transform: scale(0.3); opacity: 0; }
-    50% { transform: scale(1.05); opacity: 1; }
-    70% { transform: scale(0.9); }
-    100% { transform: scale(1); }
-}
 
 .input-group {
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     text-align: left;
     position: relative;
 }
 
 .input-group label {
     display: block;
-    margin-bottom: 10px;
-    color: #555;
-    font-weight: 400;
-    font-size: 0.95em;
-    animation: fadeIn 0.6s ease-in-out forwards 0.4s;
+    margin-bottom: 8px;
+    color: #f0f0f0;
+    font-size: 0.9em;
+    text-shadow: 1px 1px 0 #000;
+    animation: fadeInPixel 0.5s steps(8, end) forwards 0.3s;
 }
 
 .input-group input {
     width: 100%;
-    padding: 14px 18px;
-    border: 1px solid #e0e0e0;
-    border-radius: 10px;
+    padding: 12px 15px;
+    border: 2px solid #a0a0a0; /* Grey pixel border */
+    border-radius: 0;
     box-sizing: border-box;
-    font-size: 1em;
-    color: #333;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    animation: slideInRight 0.7s ease-out forwards 0.5s;
-    padding-right: 50px; /* Memberi ruang yang cukup untuk ikon mata */
-    height: 48px; /* Menentukan tinggi input secara eksplisit */
+    font-family: 'VT323', monospace;
+    font-size: 1.1em;
+    color: #e0e0e0;
+    background-color: #3a3a5a; /* Darker input background */
+    box-shadow: inset 2px 2px 0 #1a1a2e; /* Inner pixel shadow */
+    animation: slideInRightPixel 0.6s steps(10, end) forwards 0.4s;
+    padding-right: 70px; /* Ruang untuk teks SHOW */
 }
 
-@keyframes slideInRight {
+@keyframes slideInRightPixel {
     from { transform: translateX(-20px); opacity: 0; }
     to { transform: translateX(0); opacity: 1; }
 }
 
 .input-group input:focus {
     outline: none;
-    border-color: #1DB954; /* Hijau Spotify */
-    box-shadow: 0 0 0 3px rgba(29, 185, 84, 0.2);
+    border-color: #00ff00; /* Green pixel border on focus */
+    box-shadow: inset 2px 2px 0 #1a1a2e, 0 0 0 2px #00ff00; /* Outer glow pixel */
 }
 
 .toggle-password {
     position: absolute;
-    right: 15px; /* Tetap 15px dari kanan */
-    top: 50%; /* Acuan di tengah */
-    transform: translateY(-50%); /* Geser ke atas setengah tinggi ikon agar presisi */
+    right: 12px; /* Sesuaikan posisi horizontal teks */
+    top: calc(50% + 5px); /* Menyesuaikan top agar teks di tengah input field */
+    transform: translateY(-50%); /* Geser ke atas setengah tinggi elemen */
     cursor: pointer;
-    color: #888;
-    transition: color 0.3s ease; /* Transisi untuk warna hover */
-    font-size: 1.1em; /* Ukuran ikon mata */
-    line-height: 1; /* Penting agar ikon tidak terpengaruh tinggi baris teks */
+    color: #00ff00; /* Green text */
+    font-family: 'VT323', monospace;
+    font-size: 0.9em;
+    letter-spacing: 1px; /* Spasi antar huruf */
+    text-transform: uppercase;
+    text-shadow: 1px 1px 0 #000;
     
-    /* Hapus animasi text-enter/text-exit dan keyframes terkait */
-    /* Karena kita kembali ke ikon, animasi ini tidak relevan lagi. */
-    /* textFadeIn, textFadeOut keyframes juga bisa dihapus dari file CSS */
+    transition: opacity 0.1s steps(1); /* Sharp pixel transition */
+    animation: none; /* No initial animation */
 }
 
+/* Animasi saat teks muncul */
+.toggle-password.text-enter {
+    animation: textToggleEnter 0.2s steps(2) forwards;
+}
+
+/* Animasi saat teks keluar */
+.toggle-password.text-exit {
+    animation: textToggleExit 0.2s steps(2) forwards;
+}
+
+@keyframes textToggleEnter {
+    0% { opacity: 0; transform: translateY(-55%); }
+    100% { opacity: 1; transform: translateY(-50%); }
+}
+
+@keyframes textToggleExit {
+    0% { opacity: 1; transform: translateY(-50%); }
+    100% { opacity: 0; transform: translateY(-45%); }
+}
+
+
 .toggle-password:hover {
-    color: #333;
+    color: #ff00ff; /* Magenta on hover */
+    text-shadow: 1px 1px 0 #000, 0 0 5px #ff00ff;
 }
 
 button {
-    background-color: #1DB954; /* Hijau Spotify */
-    color: white;
-    padding: 15px 30px;
+    background-color: #00ff00; /* Bright green */
+    color: #1a1a2e; /* Dark text */
+    padding: 12px 25px;
     border: none;
-    border-radius: 10px;
+    border-radius: 0;
     cursor: pointer;
-    font-size: 1.1em;
-    font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    animation: pulse 1.8s infinite alternate;
-    box-shadow: 0 5px 15px rgba(29, 185, 84, 0.3);
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.9em;
+    font-weight: normal; /* Press Start 2P sudah tebal */
+    box-shadow: 4px 4px 0 #000; /* 3D pixel effect */
+    transition: all 0.1s steps(1); /* Pixelated transition */
+    margin-top: 30px;
+    animation: pulsePixel 1.5s steps(2) infinite alternate;
 }
 
-@keyframes pulse {
-    0% { transform: scale(1); box-shadow: 0 5px 15px rgba(29, 185, 84, 0.3); }
-    100% { transform: scale(1.03); box-shadow: 0 8px 20px rgba(29, 185, 84, 0.5); }
+@keyframes pulsePixel {
+    0% { transform: translate(0, 0); box-shadow: 4px 4px 0 #000; }
+    100% { transform: translate(2px, 2px); box-shadow: 2px 2px 0 #000; }
 }
 
 button:hover {
-    background-color: #179b47;
-    transform: scale(1.02);
-    box-shadow: 0 7px 20px rgba(29, 185, 84, 0.4);
+    background-color: #ff00ff; /* Magenta on hover */
+    color: #1a1a2e;
+    transform: translate(2px, 2px); /* Simulate button press */
+    box-shadow: 2px 2px 0 #000;
 }
 
 .message {
-    color: #e74c3c;
-    margin-top: 20px;
-    font-weight: 600;
+    color: #ff0000; /* Red error */
+    margin-top: 15px;
+    font-family: 'VT323', monospace;
     font-size: 0.9em;
-    animation: shake 0.5s ease-in-out;
+    text-shadow: 1px 1px 0 #000;
+    animation: shakePixel 0.3s steps(3); /* Pixel shake */
 }
 
-@keyframes shake {
+@keyframes shakePixel {
     0%, 100% { transform: translateX(0); }
-    10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
-    20%, 40%, 60%, 80% { transform: translateX(8px); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+    20%, 40%, 60%, 80% { transform: translateX(4px); }
 }
 
 /* --- Responsive Adjustments --- */
 @media (max-width: 600px) {
     .login-container {
-        padding: 40px 25px;
+        padding: 30px 20px;
     }
     h2 {
-        font-size: 1.8em;
+        font-size: 1.2em;
     }
     .input-group input {
-        padding: 12px 15px;
-        padding-right: 45px; /* Ruang untuk ikon di mobile */
-        height: 42px; /* Sesuaikan tinggi input untuk mobile */
-    }
-    .toggle-password {
-        right: 12px; /* Sesuaikan posisi horizontal ikon di mobile */
-        font-size: 1em; /* Ukuran ikon di mobile */
-        top: 74%; /* --- MEMPERTAHANKAN POSISI SPESIFIK UNTUK MOBILE --- */
-        transform: translateY(-50%); /* Tetap -50% untuk menengahkan vertikal */
-    }
-    button {
-        padding: 12px 25px;
+        padding: 10px 12px;
+        padding-right: 60px;
         font-size: 1em;
     }
+    .toggle-password {
+        right: 10px;
+        font-size: 0.8em;
+    }
+    button {
+        padding: 10px 20px;
+        font-size: 0.8em;
+    }
 }
-
-/* Hapus keyframes animasi teks yang tidak relevan lagi jika menggunakan ikon */
-/* @keyframes textFadeIn { ... } */
-/* @keyframes textFadeOut { ... } */
