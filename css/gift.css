@@ -1,5 +1,6 @@
 /* css/gift.css */
 
+/* --- General Styles --- */
 body {
     font-family: 'VT323', monospace;
     display: flex;
@@ -14,6 +15,13 @@ body {
     overflow: hidden; /* Pastikan tidak ada scroll sampai konten muncul */
     padding: 30px 0;
     box-sizing: border-box;
+    /* Penting untuk pixel art: */
+    image-rendering: optimizeSpeed;             /* Older versions of FF */
+    image-rendering: -moz-crisp-edges;          /* FF 6.0+ */
+    image-rendering: -webkit-optimize-contrast; /* Safari, Chrome */
+    image-rendering: optimize-contrast;         /* CSS3 Proposed */
+    image-rendering: pixelated;                 /* CSS4 Proposed */
+    -ms-interpolation-mode: nearest-neighbor;   /* IE */
 }
 
 @keyframes fadeInPixel {
@@ -29,17 +37,18 @@ body {
     width: 100%;
 }
 
-/* --- Gift Box Styles --- */
+/* --- Gift Box Structure --- */
 .gift-box {
     position: relative;
     width: 200px; /* Ukuran dasar kado */
     height: 150px;
-    background-color: #ff00ff; /* Magenta untuk kado */
+    /* Kita akan pakai background-color di gift-body dan gift-lid */
     border: 4px solid #cc00cc; /* Border gelap */
     box-shadow: 8px 8px 0 #000; /* Pixel shadow 3D */
-    animation: floatUp 2s steps(2) infinite alternate; /* Animasi melayang */
+    animation: floatUp 2s ease-in-out infinite alternate; /* Animasi melayang lebih smooth */
     cursor: pointer;
-    overflow: hidden; /* Untuk memastikan pita tidak keluar saat animasi */
+    perspective: 1000px; /* Untuk animasi 3D */
+    transform-style: preserve-3d; /* Penting untuk anak elemen */
 }
 
 @keyframes floatUp {
@@ -47,26 +56,40 @@ body {
     100% { transform: translateY(-10px); }
 }
 
-.gift-top {
+/* Bagian Badan Kado */
+.gift-body {
     position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #ff00ff; /* Magenta untuk badan kado */
     top: 0;
     left: 0;
-    width: 100%;
-    height: 30px; /* Tinggi tutup kado */
-    background-color: #ff00ff; /* Warna sama dengan badan kado */
-    border-bottom: 4px solid #cc00cc;
-    box-shadow: 0 4px 0 #000; /* Bayangan tutup */
-    transform-origin: bottom center; /* Titik putar untuk membuka */
-    z-index: 10; /* Di atas pita */
-    transition: transform 0.3s steps(3); /* Animasi buka tutup */
+    z-index: 1;
 }
 
+/* Bagian Tutup Kado */
+.gift-lid {
+    position: absolute;
+    top: -30px; /* Awalnya di atas badan kado */
+    left: -4px; /* Menutupi border kiri */
+    width: calc(100% + 8px); /* Lebar lebih agar menutupi border */
+    height: 30px; /* Tinggi tutup kado */
+    background-color: #ff00ff; /* Warna sama dengan badan kado */
+    border: 4px solid #cc00cc; /* Border gelap */
+    border-bottom: none; /* Tidak ada border bawah */
+    box-shadow: 8px 8px 0 #000; /* Bayangan tutup */
+    transform-origin: bottom center; /* Titik putar untuk membuka */
+    z-index: 10; /* Di atas pita dan badan */
+    transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Animasi buka tutup lebih smooth dan bouncy */
+}
+
+/* Pita Kado */
 .gift-bow-h, .gift-bow-v {
     position: absolute;
     background-color: #00ff00; /* Hijau neon untuk pita */
-    box-shadow: 1px 1px 0 #000;
+    box-shadow: 1px 1px 0 #000, -1px -1px 0 #00ff00; /* Pixel shadow dan highlight */
     z-index: 5; /* Di bawah tutup, di atas badan kado */
-    transition: opacity 0.3s steps(3); /* Animasi fade out pita */
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s ease-out; /* Animasi fade out pita */
 }
 
 .gift-bow-h { /* Pita Horizontal */
@@ -83,27 +106,27 @@ body {
     left: calc(50% - 5px);
 }
 
-/* Animasi membuka kado */
-.gift-box.is-open .gift-top {
-    transform: rotateX(-90deg) translateY(-20px); /* Membuka ke belakang */
-    animation: openGiftTop 0.4s steps(4) forwards;
+/* --- Animasi Membuka Kado (is-open class) --- */
+.gift-box.is-open .gift-lid {
+    transform: rotateX(-100deg) translateY(-100px) translateZ(50px); /* Terangkat, memutar tajam, dan maju */
+    opacity: 0; /* Tutup menghilang sepenuhnya */
+    transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.8s ease-out; /* Lebih dramatis dan bouncy */
 }
-.gift-box.is-open .gift-bow-h,
+
+.gift-box.is-open .gift-bow-h {
+    transform: translateY(-100px) scaleX(0.2); /* Pita horizontal terlempar ke atas dan menyempit */
+    opacity: 0;
+    transition-delay: 0.1s; /* Sedikit delay agar terlihat berurutan */
+}
+
 .gift-box.is-open .gift-bow-v {
-    opacity: 0; /* Pita menghilang */
-    animation: fadeBow 0.3s steps(3) forwards;
-}
-
-@keyframes openGiftTop {
-    0% { transform: rotateX(0deg) translateY(0); }
-    100% { transform: rotateX(-90deg) translateY(-20px); }
-}
-@keyframes fadeBow {
-    0% { opacity: 1; }
-    100% { opacity: 0; }
+    transform: translateX(100px) scaleY(0.2); /* Pita vertikal terlempar ke samping dan menyempit */
+    opacity: 0;
+    transition-delay: 0.1s; /* Sedikit delay */
 }
 
 
+/* --- Open Button Styles --- */
 .open-button {
     position: absolute;
     bottom: 20px;
@@ -169,12 +192,13 @@ body {
 
 .gift-content.content-reveal {
     display: block; /* Akan diubah JS */
-    animation: contentReveal 1s steps(10, end); /* Animasi reveal */
+    animation: contentReveal 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; /* Animasi reveal dengan bounce */
 }
 
 @keyframes contentReveal {
-    from { opacity: 0; transform: translateY(30px) scale(0.9); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
+    0% { opacity: 0; transform: translateY(30px) scale(0.8); }
+    60% { opacity: 1; transform: translateY(-5px) scale(1.05); } /* Sedikit overshoot */
+    100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 h2 {
@@ -228,12 +252,21 @@ h2 {
     transform: translate(2px, 2px);
     box-shadow: 2px 2px 0 #000;
 }
+@keyframes pulsePixel {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.02); }
+}
+
 
 /* --- Responsive Adjustments --- */
 @media (max-width: 600px) {
     .gift-box {
         width: 160px;
         height: 120px;
+    }
+    .gift-lid {
+        height: 25px;
+        top: -25px;
     }
     .open-button {
         font-size: 0.6em;
