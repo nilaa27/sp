@@ -77,7 +77,7 @@ h2 {
     color: #333;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     animation: slideInRight 0.7s ease-out forwards 0.5s;
-    padding-right: 70px; /* Memberi ruang lebih banyak untuk teks "Show" */
+    padding-right: 50px; /* Memberi ruang yang cukup untuk ikon mata */
     height: 48px; /* Menentukan tinggi input secara eksplisit */
 }
 
@@ -94,46 +94,19 @@ h2 {
 
 .toggle-password {
     position: absolute;
-    right: 15px;
+    right: 15px; /* Tetap 15px dari kanan */
     top: 50%; /* Acuan di tengah */
-    transform: translateY(-50%); /* --- PENYESUAIAN UTAMA DI SINI --- */
-    /* Kembali ke -50% agar titik tengah elemen pas dengan top: 50%.
-       Kita akan sesuaikan `top` dengan nilai `px` di bawah jika perlu. */
+    transform: translateY(-50%); /* Geser ke atas setengah tinggi ikon agar presisi */
     cursor: pointer;
     color: #888;
-    transition: opacity 0.2s ease-out, transform 0.2s ease-out; /* Transisi halus */
-    font-size: 0.9em; /* Ukuran font untuk teks "Show" */
-    font-weight: 600; /* Tebal sedikit */
-    letter-spacing: 0.5px;
-    text-transform: uppercase; /* Agar terlihat lebih rapi */
+    transition: color 0.3s ease; /* Transisi untuk warna hover */
+    font-size: 1.1em; /* Ukuran ikon mata */
+    line-height: 1; /* Penting agar ikon tidak terpengaruh tinggi baris teks */
     
-    /* --- PENYESUAIAN TAMBAHAN UNTUK POSISI VERTIKAL --- */
-    /* Jika masih kurang ke bawah, coba naikkan nilai `top` ini.
-       Misal: `top: 25px;` (coba-coba nilai sampai pas di tengah) */
-    /* Atau, gunakan `line-height` yang sama dengan tinggi input jika memungkinkan */
-    /* line-height: 48px; */ /* Sesuaikan dengan tinggi input jika ini membantu */
+    /* Hapus animasi text-enter/text-exit dan keyframes terkait */
+    /* Karena kita kembali ke ikon, animasi ini tidak relevan lagi. */
+    /* textFadeIn, textFadeOut keyframes juga bisa dihapus dari file CSS */
 }
-
-/* Animasi saat teks muncul */
-.toggle-password.text-enter {
-    animation: textFadeIn 0.2s forwards;
-}
-
-/* Animasi saat teks keluar */
-.toggle-password.text-exit {
-    animation: textFadeOut 0.2s forwards;
-}
-
-@keyframes textFadeIn {
-    from { opacity: 0; transform: translateY(-60%); } /* Mulai sedikit di atas dan transparan */
-    to { opacity: 1; transform: translateY(-50%); } /* Berakhir di posisi normal */
-}
-
-@keyframes textFadeOut {
-    from { opacity: 1; transform: translateY(-50%); }
-    to { opacity: 0; transform: translateY(-60%); } /* Geser sedikit ke atas dan transparan saat keluar */
-}
-
 
 .toggle-password:hover {
     color: #333;
@@ -188,19 +161,21 @@ button:hover {
     }
     .input-group input {
         padding: 12px 15px;
-        padding-right: 60px; /* Sesuaikan lagi untuk mobile */
+        padding-right: 45px; /* Ruang untuk ikon di mobile */
         height: 42px; /* Sesuaikan tinggi input untuk mobile */
     }
     .toggle-password {
-        right: 10px; /* Sesuaikan lagi untuk mobile */
-        font-size: 0.8em;
-        top: 74%;
-        transform: translateY(-50%); /* Kembali ke -50% */
-        /* Jika masih kurang di tengah, coba naikkan nilai `top` ini di mobile juga */
-        /* top: 22px; */ /* contoh nilai untuk mobile */
+        right: 12px; /* Sesuaikan posisi horizontal ikon di mobile */
+        font-size: 1em; /* Ukuran ikon di mobile */
+        top: 74%; /* --- MEMPERTAHANKAN POSISI SPESIFIK UNTUK MOBILE --- */
+        transform: translateY(-50%); /* Tetap -50% untuk menengahkan vertikal */
     }
     button {
         padding: 12px 25px;
         font-size: 1em;
     }
 }
+
+/* Hapus keyframes animasi teks yang tidak relevan lagi jika menggunakan ikon */
+/* @keyframes textFadeIn { ... } */
+/* @keyframes textFadeOut { ... } */
