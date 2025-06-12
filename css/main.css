@@ -77,7 +77,7 @@ h2 {
     color: #333;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     animation: slideInRight 0.7s ease-out forwards 0.5s;
-    padding-right: 48px; /* Memberi ruang yang cukup untuk ikon mata */
+    padding-right: 70px; /* Memberi ruang lebih banyak untuk teks "Show" */
 }
 
 @keyframes slideInRight {
@@ -93,14 +93,16 @@ h2 {
 
 .toggle-password {
     position: absolute;
-    right: 15px; /* Sedikit geser ke kiri dari sebelumnya 18px */
+    right: 15px;
     top: 50%; /* Posisikan di tengah vertikal */
-    transform: translateY(-50%); /* Geser ke atas setengah tinggi ikon */
+    transform: translateY(-50%); /* Geser ke atas setengah tinggi elemen */
     cursor: pointer;
     color: #888;
     transition: color 0.3s ease;
-    font-size: 1.1em; /* Ukuran ikon mata */
-    line-height: 1; /* Pastikan line-height tidak mengganggu posisi */
+    font-size: 0.9em; /* Ukuran font untuk teks "Show" */
+    font-weight: 600; /* Tebal sedikit */
+    letter-spacing: 0.5px;
+    text-transform: uppercase; /* Agar terlihat lebih rapi */
 }
 
 .toggle-password:hover {
@@ -156,10 +158,11 @@ button:hover {
     }
     .input-group input {
         padding: 12px 15px;
-        padding-right: 45px; /* Sesuaikan lagi untuk mobile */
+        padding-right: 60px; /* Sesuaikan lagi untuk mobile */
     }
     .toggle-password {
-        right: 12px; /* Sesuaikan lagi untuk mobile */
+        right: 10px; /* Sesuaikan lagi untuk mobile */
+        font-size: 0.8em;
     }
     button {
         padding: 12px 25px;
