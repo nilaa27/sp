@@ -1,10 +1,11 @@
-/* css/456.css */
-
+/*
+* Core Styles: Global typography, layout, and base animations.
+*/
 body {
     font-family: 'VT323', monospace;
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Mengatur konten ke atas jika ada scroll */
+    align-items: flex-start; /* Aligns content to the top, allowing for scroll */
     min-height: 100vh;
     background-color: #1a1a2e; /* Dark, retro background */
     margin: 0;
@@ -20,6 +21,9 @@ body {
     to { opacity: 1; }
 }
 
+/*
+* Main Content Container: Defines the primary layout block with retro styling.
+*/
 .main-container {
     background-color: #2e2e4e;
     padding: 30px;
@@ -39,7 +43,7 @@ body {
     position: absolute;
     top: -2px; left: -2px; right: -2px; bottom: -2px;
     border: 2px dashed #4e4e6a;
-    pointer-events: none;
+    pointer-events: none; /* Ensures pseudo-element doesn't interfere with interactions */
 }
 
 @keyframes slideInPixel {
@@ -47,20 +51,22 @@ body {
     to { transform: translateY(0) scale(1); opacity: 1; }
 }
 
-/* --- Header Section (Profile & Chat Bubble) --- */
+/*
+* Header Section: Profile display and introductory chat bubble.
+*/
 .header-section {
     display: flex;
     justify-content: flex-start;
-    align-items: center; /* Memastikan elemen sejajar di tengah secara vertikal */
+    align-items: center; /* Vertically aligns elements within the header */
     margin-bottom: 40px;
     padding-bottom: 20px;
-    border-bottom: 2px dotted #4e4e6a; /* Pixel dotted border */
+    border-bottom: 2px dotted #4e4e6a; /* Pixelated dotted border for separation */
     animation: fadeInPixel 0.8s steps(10, end) forwards 0.3s;
 }
 
 .profile-area {
     display: flex;
-    align-items: center; /* Memastikan gambar dan bubble sejajar */
+    align-items: center; /* Aligns profile picture and chat bubble */
     gap: 15px;
 }
 
@@ -83,7 +89,7 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    image-rendering: pixelated; /* Penting untuk gambar pixel */
+    image-rendering: pixelated; /* Essential for pixel art rendering */
     filter: brightness(1.2);
 }
 
@@ -99,18 +105,18 @@ body {
     box-shadow: 4px 4px 0 #000;
     animation: bubblePopPixel 0.5s steps(5) forwards 0.6s;
     text-shadow: 1px 1px 0 #000;
-    line-height: 1.2; /* Menjaga teks tidak terlalu rapat */
+    line-height: 1.2; /* Ensures text readability within the bubble */
 }
-.chat-bubble::after { /* Pointer for bubble */
+.chat-bubble::after { /* Pointer for the chat bubble, connecting to profile */
     content: '';
     position: absolute;
-    left: -10px; /* Sesuaikan agar lebih menempel ke gambar */
-    top: 50%; /* Tengah vertikal */
-    transform: translateY(-50%); /* Geser ke atas setengah tingginya */
+    left: -10px;
+    top: 50%;
+    transform: translateY(-50%);
     width: 0; height: 0;
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
-    border-right: 10px solid #5d5d81; /* Ukuran dan warna sesuai bubble */
+    border-right: 10px solid #5d5d81;
 }
 
 @keyframes bubblePopPixel {
@@ -118,7 +124,9 @@ body {
     100% { transform: scale(1); opacity: 1; }
 }
 
-/* --- Age Display & Countdown Section --- */
+/*
+* Age and Countdown Display: Section for displaying age and a dynamic countdown.
+*/
 .countdown-section {
     text-align: center;
     margin-bottom: 30px;
@@ -138,12 +146,11 @@ body {
     100% { filter: brightness(0.8); }
 }
 
-
 .countdown-timer {
     display: flex;
     justify-content: center;
-    align-items: center; /* UBAH: Untuk menengahkan angka dan kolon secara vertikal */
-    gap: 10px; /* Kurangi gap untuk lebih kompak */
+    align-items: center; /* Vertically centers digits and colons */
+    gap: 10px; /* Provides spacing between time components */
     margin-bottom: 40px;
     font-family: 'VT323', monospace;
     color: #00ff00;
@@ -164,7 +171,7 @@ body {
 .time-value {
     font-size: 2.5em;
     font-weight: normal;
-    line-height: 1; /* Penting untuk presisi vertikal angka */
+    line-height: 1; /* Ensures vertical alignment for digits */
     color: #ff00ff; /* Magenta for values */
     text-shadow: 1px 1px 0 #000;
 }
@@ -173,21 +180,23 @@ body {
     font-size: 0.7em;
     font-weight: normal;
     color: #a0a0a0;
-    margin-top: 5px; /* Sedikit jarak dari angka */
+    margin-top: 5px; /* Spacing from the numerical value */
     text-transform: uppercase;
     text-shadow: 1px 1px 0 #000;
 }
 
 .colon {
-    font-size: 2.5em; /* Ukuran kolon sesuai angka */
+    font-size: 2.5em; /* Matches the size of time values */
     font-weight: normal;
     color: #ff00ff;
     margin: 0 5px;
     text-shadow: 1px 1px 0 #000;
-    line-height: 1; /* Pastikan line-height konsisten dengan time-value */
+    line-height: 1; /* Consistent line-height with time-value */
 }
 
-/* --- Gift Button --- */
+/*
+* Call to Action: Gift button with pixel art styling and interactive effects.
+*/
 .gift-button {
     background-color: #ff00ff; /* Magenta */
     color: #1a1a2e;
@@ -199,23 +208,25 @@ body {
     font-size: 0.9em;
     font-weight: normal;
     box-shadow: 4px 4px 0 #000; /* 3D pixel effect */
-    transition: all 0.1s steps(1);
+    transition: all 0.1s steps(1); /* Pixelated transition effect */
     margin-top: 20px;
     animation: pulsePixel 1.5s steps(2) infinite alternate;
 }
 .gift-button:hover {
     background-color: #00ff00; /* Green on hover */
-    transform: translate(2px, 2px);
+    transform: translate(2px, 2px); /* Simulates button press */
     box-shadow: 2px 2px 0 #000;
 }
 
-/* --- Footer Icons (simple pixel blocks) --- */
+/*
+* Footer Elements: Decorative pixel block icons and attribution.
+*/
 .footer-icons {
     margin-top: 40px;
     display: flex;
     justify-content: center;
     gap: 15px;
-    font-size: 1.5em; /* Ukuran block */
+    font-size: 1.5em; /* Controls the size of the pixel blocks */
     color: #00ff00; /* Green */
     animation: fadeInPixel 0.8s steps(10, end) forwards 1.5s;
 }
@@ -245,13 +256,14 @@ body {
     text-shadow: 1px 1px 0 #000;
 }
 
-
-/* --- Responsive Adjustments --- */
+/*
+* Responsive Adjustments: Media queries for optimizing layout on smaller screens.
+*/
 @media (max-width: 600px) {
     .main-container {
         padding: 25px;
     }
-    h2 {
+    h2 { /* Assuming h2 is used, add professional comment if not */
         font-size: 1.4em;
     }
     .profile-pic-wrapper {
@@ -262,7 +274,7 @@ body {
         padding: 8px 15px;
         font-size: 0.9em;
     }
-    .chat-bubble::after { /* Sesuaikan pointer di mobile juga */
+    .chat-bubble::after { /* Adjusts pointer position for mobile displays */
         left: -8px;
         border-right: 8px solid #5d5d81;
     }
@@ -270,12 +282,12 @@ body {
         font-size: 1.8em;
     }
     .countdown-timer {
-        flex-wrap: wrap; /* Izinkan wrap pada baris baru */
-        gap: 5px; /* Kurangi gap */
+        flex-wrap: wrap; /* Allows items to wrap to the next line */
+        gap: 5px; /* Reduces spacing on mobile */
         justify-content: center;
     }
     .time-box {
-        padding: 6px 10px; /* Kurangi padding di mobile */
+        padding: 6px 10px; /* Reduces padding on mobile */
     }
     .time-value {
         font-size: 2em;
