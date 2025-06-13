@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KEJUTAN PENTING!</title>
+    <title>made_with_xlord</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/456.css">
 </head>
@@ -15,31 +15,32 @@
                     <img id="birthdayPersonPic" src="https://iili.io/FfPuGEu.jpg" alt="[TARGET_PHOTO]" class="profile-pic">
                 </div>
                 <div class="chat-bubble">
-                    [BOT]: Hi, Mayfa Kamu Sudah Melewati Tantangan Selama?
+                    [BOT]: Hi, Mayfa Kamu Sudah Melewati Tantangan Hidup Selama
                 </div>
             </div>
         </div>
 
         <div class="countdown-section">
-            <h1 id="ageDisplay" class="age-text">00 TAHUN 00 BULAN</h1>
+            <h1 id="ageDisplay" class="age-text">00 TAHUN 00 BULAN</h1> 
+            
             <div class="countdown-timer">
                 <div class="time-box">
-                    <span id="days" class="time-value">00</span>
+                    <span id="totalDays" class="time-value">00</span>
                     <span class="time-label">HARI</span>
                 </div>
                 <span class="colon">:</span>
                 <div class="time-box">
-                    <span id="hours" class="time-value">00</span>
+                    <span id="totalHours" class="time-value">00</span>
                     <span class="time-label">JAM</span>
                 </div>
                 <span class="colon">:</span>
                 <div class="time-box">
-                    <span id="minutes" class="time-value">00</span>
+                    <span id="totalMinutes" class="time-value">00</span>
                     <span class="time-label">MENIT</span>
                 </div>
                 <span class="colon">:</span>
                 <div class="time-box">
-                    <span id="seconds" class="time-value">00</span>
+                    <span id="totalSeconds" class="time-value">00</span>
                     <span class="time-label">DETIK</span>
                 </div>
             </div>
@@ -60,30 +61,19 @@
     </div>
 
     <script>
-        // Tanggal lahir orang yang berulang tahun: 28 September 2005
-        // Format: YYYY-MM-DD
         const birthDateStr = "2005-09-28";
-        const birthDate = new Date(birthDateStr);
+        const birthDate = new Date(birthDateStr); // Tanggal lahir Mayfa
 
-        // Tanggal tujuan untuk countdown (ulang tahun berikutnya)
-        let nextBirthday = new Date(new Date().getFullYear(), birthDate.getMonth(), birthDate.getDate());
-
-        // Jika ulang tahun berikutnya sudah lewat di tahun ini, set ke tahun depan
-        if (nextBirthday < new Date()) {
-            nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
-        }
-
-        // --- Fungsi untuk memperbarui tampilan umur (X Years Y Months) ---
         function updateAgeDisplay() {
-            const now = new Date();
+            const now = new Date(); // Mengambil waktu lokal saat ini
             let years = now.getFullYear() - birthDate.getFullYear();
             let months = now.getMonth() - birthDate.getMonth();
-            let daysInMonth = now.getDate() - birthDate.getDate();
+            let days = now.getDate() - birthDate.getDate();
 
-            if (daysInMonth < 0) {
+            if (days < 0) {
                 months--;
                 const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
-                daysInMonth = prevMonth.getDate() + daysInMonth; 
+                days = prevMonth.getDate() + days; 
             }
 
             if (months < 0) {
@@ -95,37 +85,37 @@
                 `${String(years).padStart(2, '0')} TAHUN ${String(months).padStart(2, '0')} BULAN`;
         }
 
-        // --- Fungsi untuk memperbarui countdown ---
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = nextBirthday.getTime() - now;
+        function updateTotalDuration() {
+            const now = new Date(); // Mengambil waktu lokal saat ini
+            const timeDifference = now.getTime() - birthDate.getTime();
 
-            if (distance < 0) {
-                document.getElementById("days").textContent = "00";
-                document.getElementById("hours").textContent = "00";
-                document.getElementById("minutes").textContent = "00";
-                document.getElementById("seconds").textContent = "00";
-                document.getElementById("ageDisplay").textContent = "SELAMAT ULANG TAHUN!";
-                
-                nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
+            if (timeDifference < 0) { 
+                document.getElementById("totalDays").textContent = "00";
+                document.getElementById("totalHours").textContent = "00";
+                document.getElementById("totalMinutes").textContent = "00";
+                document.getElementById("totalSeconds").textContent = "00";
                 return;
             }
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            const totalSeconds = Math.floor(timeDifference / 1000);
+            const totalMinutes = Math.floor(totalSeconds / 60);
+            const totalHours = Math.floor(totalMinutes / 60);
+            const totalDays = Math.floor(totalHours / 24);
 
-            document.getElementById("days").textContent = String(days).padStart(2, '0');
-            document.getElementById("hours").textContent = String(hours).padStart(2, '0');
-            document.getElementById("minutes").textContent = String(minutes).padStart(2, '0');
-            document.getElementById("seconds").textContent = String(seconds).padStart(2, '0');
+            const remainingSeconds = totalSeconds % 60;
+            const remainingMinutes = totalMinutes % 60;
+            const remainingHours = totalHours % 24;
+
+            document.getElementById("totalDays").textContent = String(totalDays).padStart(2, '0');
+            document.getElementById("totalHours").textContent = String(remainingHours).padStart(2, '0');
+            document.getElementById("totalMinutes").textContent = String(remainingMinutes).padStart(2, '0');
+            document.getElementById("totalSeconds").textContent = String(remainingSeconds).padStart(2, '0');
 
             updateAgeDisplay();
         }
 
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
+        updateTotalDuration();
+        setInterval(updateTotalDuration, 1000);
 
         function showGift() {
             window.location.href = 'gift_qr.html';
